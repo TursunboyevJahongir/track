@@ -19,7 +19,7 @@ class RolesTableSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $roleNames = ['superadmin', 'customer', 'owner', 'manager', 'salesman'];
+        $roleNames = ['superadmin', 'call-center', 'manager','worker'];
         $roles = collect($roleNames)->map(function ($role) {
             return ['name' => $role,
                 'guard_name' => 'api',

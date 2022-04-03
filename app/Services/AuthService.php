@@ -21,7 +21,7 @@ class AuthService extends CoreService
     {
         $user = DB::transaction(function () use ($request) {
             $user = $this->repository->create($request->validated());
-            $this->repository->syncRoleToUser($user, 'customer');
+            $this->repository->syncRoleToUser($user, config('project.default_role'));
             return $user;
         });
 

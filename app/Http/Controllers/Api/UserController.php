@@ -42,7 +42,7 @@ class UserController extends Controller
         return $this->responseWith(['users' => $users]);
     }
 
-    public function show(User $user, GetAllFilteredRecordsRequest $request): JsonResponse
+    public function show($user, GetAllFilteredRecordsRequest $request): JsonResponse
     {
         $user = $this->service->show($user, $request);
 
