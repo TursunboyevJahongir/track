@@ -5,8 +5,7 @@ namespace App\Models;
 use App\Core\Models\Authenticatable;
 use App\Traits\Author;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\{MorphMany, MorphOne};
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -18,8 +17,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'full_name',
+        'email',
         'phone',
         'is_active',
         'phone_confirmed',
@@ -37,8 +36,9 @@ class User extends Authenticatable
         'updated_at',
         'deleted_at'];
 
-    protected $searchable = ['first_name',
-        'last_name',
+    protected $searchable = [
+        'full_name',
+        'email',
         'phone'];
 
     protected $casts = [
@@ -68,4 +68,5 @@ class User extends Authenticatable
     {
         return $this->morphMany(RefreshToken::class, 'user');
     }
+
 }

@@ -18,6 +18,7 @@ class PermissionsSeeder extends Seeder
     {
         $superadmin = Role::findByName('superadmin');
 
+        Permission::create(['guard_name' => 'api', 'name' => 'system']);
         $superadmin->syncPermissions(Permission::all());
     }
 }

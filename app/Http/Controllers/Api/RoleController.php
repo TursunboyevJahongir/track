@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\ApiController;
 use App\Http\Requests\Api\RoleCreateRequest;
 use App\Http\Requests\Api\RoleUpdateRequest;
 use App\Http\Resources\Api\RoleResource;
@@ -10,7 +9,7 @@ use App\Http\Resources\Api\RoleWithPermissionsResource;
 use App\Services\RoleService;
 use Illuminate\Http\JsonResponse;
 
-class RoleController extends ApiController
+class RoleController
 {
     public function __construct(
         private RoleService $roleService

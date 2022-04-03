@@ -16,21 +16,20 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(static function (User $user){
-            $user->assignRole('customer');
+            $user->assignRole(config('project.default_role'));
         });
     }
 
     public function definition(): array
     {
         return [
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
+            'full_name' => $this->faker->firstName(),
+            'email' => $this->faker->email(),
             'phone' => '998' . $this->faker->numberBetween('100000000', '999999999'),
             'password' => bcrypt(12345678),
             'is_active' => $this->faker->boolean(),
             'phone_confirmed' => $this->faker->boolean(),
             'phone_confirmed_at' => Carbon::now(),
-
             'author_id' => User::query()->inRandomOrder()->first()?->id,
         ];
     }
