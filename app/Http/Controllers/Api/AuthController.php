@@ -58,4 +58,22 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Confirm phone via sms code
+     *
+     * @param ConfirmPhoneRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function confirmPhone(ConfirmPhoneRequest $request): JsonResponse
+    {
+        try {
+            $this->service->confirm($request);
+
+            return $this->responseWith(message: __('messages.phone_confirmed'));
+        } catch (\Exception $e) {
+            return $this->responseWith(code: $e->getCode(), message: $e->getMessage());
+        }
+    }
+
 }

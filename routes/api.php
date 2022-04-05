@@ -14,6 +14,13 @@ Route::prefix('auth')
         Route::post('logout', 'logout');
     });
 
+Route::prefix('phone')
+    ->controller(AuthController::class)
+    ->group(function () {
+        Route::post('resend-sms', 'resendSms');
+        Route::post('confirm', 'confirmPhone')->name('confirm');
+    });
+
 Route::group(['middleware' => ['auth:api'], 'prefix' => 'admin'], function () {
     Route::prefix('users')
         ->controller(UserController::class)

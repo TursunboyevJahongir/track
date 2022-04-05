@@ -5,6 +5,9 @@ namespace App\Services;
 
 use App\Contracts\UserRepositoryContract;
 use App\Core\Services\CoreService;
+use App\Events\PhoneConfirmed;
+use App\Events\SmsConfirmCheck;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,5 +64,21 @@ class AuthService extends CoreService
         auth()->user()->currentAccessToken()?->delete();
 
         $this->repository->delete($token);
+    }
+
+    /**
+     * Confirm user phone number
+     *
+     * @param FormRequest $request
+     *
+     * @return User
+     */
+    public function confirm(FormRequest $request): User
+    {
+        SmsConfirmCheck::dispatch($request->phone, $request->code);
+        $user = $this->repository->findByPhone($request->phone);
+        PhoneConfirmed::dispatch($user);
+
+        return $user;
     }
 }
