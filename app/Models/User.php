@@ -46,7 +46,7 @@ class User extends Authenticatable
         'updated_at' => 'datetime:d.m.Y H:i',
     ];
 
-    public const USER_AVATAR_RESOURCES = 'USER_AVATAR_RESOURCES';
+    public const RESOURCES_IDENTIFIER = 'USER_AVATAR_RESOURCES';
     public const PATH = 'avatars';
 
     public function avatar(): MorphOne

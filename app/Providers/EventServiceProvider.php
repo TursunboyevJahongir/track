@@ -2,27 +2,49 @@
 
 namespace App\Providers;
 
+use App\Events\{AttachImages,
+    DeleteConfirmSms,
+    DestroyImages,
+    PhoneConfirmed,
+    SmsConfirmCheck,
+    SmsConfirmSend,
+    UpdateImage
+};
+use App\Listeners\{AttachImagesListener,
+    CheckConfirmationCode,
+    DeleteConfirmationCode,
+    DestroyImagesListener,
+    SendConfirmationCode,
+    SetPhoneConfirmed,
+    UpdateImagesListener
+};
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Events\AttachImages;
-use App\Events\DestroyImages;
-use App\Events\UpdateImage;
-use App\Listeners\AttachImagesListener;
-use App\Listeners\DestroyImagesListener;
-use App\Listeners\UpdateImagesListener;
 
 class EventServiceProvider extends ServiceProvider
 {
-    protected $listen = [
-        UpdateImage::class   => [
+    protected $listen = array(
+        UpdateImage::class => array(
             UpdateImagesListener::class
-        ],
-        AttachImages::class  => [
+        ),
+        AttachImages::class => array(
             AttachImagesListener::class
-        ],
-        DestroyImages::class => [
+        ),
+        DestroyImages::class => array(
             DestroyImagesListener::class
-        ]
-    ];
+        ),
+        SmsConfirmCheck::class => array(
+            CheckConfirmationCode::class
+        ),
+        DeleteConfirmSms::class => array(
+            DeleteConfirmationCode::class
+        ),
+        SmsConfirmSend::class => array(
+            SendConfirmationCode::class
+        ),
+        PhoneConfirmed::class => array(
+            SetPhoneConfirmed::class
+        ),
+    );
 
     /**
      * Register any events for your application.

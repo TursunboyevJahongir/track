@@ -16,4 +16,6 @@ return [
     'isnt_your_worker' => "This is not your worker",
     'product_not_found' => "Product not found",
     'logout' => 'Logged out',
+    'phone_not_confirmed' => 'Номер телефона не подтвержден',
+    'profile_requires_activation' => 'Вы не активированы в системе - обратитесь к администратору',
 ];
