@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Core\Http\Controllers\BaseController as Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Requests\Api\ConfirmPhoneRequest;
+use App\Http\Requests\Api\ResendSmsConfirmRequest;
 use App\Http\Requests\Api\UserCreateRequest;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
@@ -53,6 +55,23 @@ class AuthController extends Controller
             $this->service->logout($request);
 
             return $this->responseWith(message: __('messages.logout'));
+        } catch (\Exception $e) {
+            return $this->responseWith(code: $e->getCode(), message: $e->getMessage());
+        }
+    }
+
+    /**
+     * @param ResendSmsConfirmRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function resendSms(ResendSmsConfirmRequest $request): JsonResponse
+    {
+        try {
+            $this->service->sendConfirmation($request);
+
+            return $this->responseWith(message: __('sms.confirmation_sent',
+                ['attribute' => $request->phone]));
         } catch (\Exception $e) {
             return $this->responseWith(code: $e->getCode(), message: $e->getMessage());
         }

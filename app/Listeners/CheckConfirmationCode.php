@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Contracts\SmsServiceContract;
 use App\Events\SmsConfirmCheck;
 
 class CheckConfirmationCode
