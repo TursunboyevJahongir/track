@@ -11,7 +11,7 @@ class RefreshAppCommand extends Command
 {
     protected $signature = 'app:refresh';
 
-    protected $description = 'Command description';
+    protected $description = 'refreshing the app Command';
 
     public function handle(): void
     {
