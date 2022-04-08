@@ -6,9 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "filament/filament": "^2.10",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
+        "jeffgreco13/filament-breezy": "^1.2",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
