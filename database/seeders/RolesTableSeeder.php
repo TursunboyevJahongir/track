@@ -48,7 +48,7 @@ class RolesTableSeeder extends Seeder
         Role::insert($roles);
 
         $finder = new Finder();
-        $path = 'App/Http/Controllers/Api';
+        $path = app_path() . '/Http/Controllers/Api/';
         $finder->in($path)->name('*.php')->notName('AuthController.php');
         $controllerNames = [];
         foreach ($finder as $f) {
