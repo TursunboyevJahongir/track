@@ -19,14 +19,33 @@ class RolesTableSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $roleNames = ['superadmin', 'call-center', 'manager','worker'];
-        $roles = collect($roleNames)->map(function ($role) {
-            return ['name' => $role,
+        $roleNames = [
+            'superadmin' => ['uz' => 'super admin', 'ru' => "Супер администратор", 'en' => "super admin"],
+            'call-center' => ['uz' => "qo'ng'iroq markazi", 'ru' => "Колл-центр", 'en' => "Call center"],
+            'manager' => ['uz' => "Menejer", 'ru' => "Менеджер", 'en' => "Manager"],
+            'driver' => ['uz' => "Haydovchi", 'ru' => "Водитель", 'en' => "Driver"],
+            'dispatcher' => ['uz' => "Ekspeditor", 'ru' => "Экспедитор", 'en' => "Dispatcher"],
+            'customer' => ['uz' => "Mijoz", 'ru' => "Заказчик", 'en' => "Customer"],
+            'carrier' => ['uz' => "Kuryer", 'ru' => "Перевозчик", 'en' => "Carrier"],
+        ];
+        $roles = [];
+        foreach ($roleNames as $key => $value) {
+            $roles[] = [
+                'title' => json_encode($value),
+                'name' => $key,
                 'guard_name' => 'api',
                 'created_at' => now(),
-                'updated_at' => now()];
-        });
-        Role::insert($roles->toArray());
+                'updated_at' => now()
+            ];
+        }
+//        $roles = collect($roleNames)->map(function ($role) {
+//            return ['name' => $role,
+//                'guard_name' => 'api',
+//                'created_at' => now(),
+//                'updated_at' => now()
+//            ];
+//        });
+        Role::insert($roles);
 
         $finder = new Finder();
         $path = 'App/Http/Controllers/Api';
