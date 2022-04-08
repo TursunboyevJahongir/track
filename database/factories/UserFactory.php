@@ -15,8 +15,8 @@ class UserFactory extends Factory
      */
     public function configure()
     {
-        return $this->afterCreating(static function (User $user){
-            $user->assignRole(config('project.default_role'));
+        return $this->afterCreating(static function (User $user) {
+            $user->assignRole(rand(0, 1) ? "driver" : "customer");
         });
     }
 
