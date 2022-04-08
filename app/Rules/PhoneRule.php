@@ -25,7 +25,7 @@ class PhoneRule implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return preg_match('/^998\d{9}$/', $value) === 1;
+        return preg_match('/^\d{12}$/', $value) === 1;
     }
 
     /**
