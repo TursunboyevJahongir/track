@@ -172,7 +172,7 @@ return [
     |
     */
 
-    'dark_mode' => false,
+    'dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -189,17 +189,17 @@ return [
     'layout' => [
         'forms' => [
             'actions' => [
-                'alignment' => 'left',
+                'alignment' => 'right',
             ],
             'have_inline_labels' => false,
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
         'max_content_width' => null,
         'notifications' => [
             'vertical_alignment' => 'top',
-            'alignment' => 'center',
+            'alignment' => 'right',
         ],
         'sidebar' => [
             'is_collapsible_on_desktop' => false,

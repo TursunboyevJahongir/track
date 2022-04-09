@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Core\Models\Authenticatable;
 use App\Traits\Author;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{MorphMany, MorphOne};
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName
 {
     use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable;
 
@@ -68,6 +70,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function token(): MorphMany
     {
         return $this->morphMany(RefreshToken::class, 'user');
+    }
+
+    public function canAccessFilament(): bool
+    {
+        #todo: change to roles
+        return true;
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->full_name;
     }
 
 }

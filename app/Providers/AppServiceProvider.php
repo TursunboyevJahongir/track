@@ -5,7 +5,8 @@ namespace App\Providers;
 use App\Core\Contracts\{CoreRepositoryContract, CoreServiceContract};
 use App\Core\Repositories\CoreRepository;
 use App\Core\Services\CoreService;
-use App\Repositories\{ResourceRepository,
+use App\Repositories\{
+    ResourceRepository,
     SmsRepository,
     UserRepository
 };
@@ -22,6 +23,7 @@ use App\Services\{
     UserService
 };
 use App\Services\Sms\SmsService;
+use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -54,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Filament::serving(function () {
+            Filament::registerTheme(mix('css/app.css'));
+        });
     }
 }

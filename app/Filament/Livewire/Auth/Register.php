@@ -62,7 +62,7 @@ class Register extends Component implements Forms\Contracts\HasForms
             'full_name' => $data['full_name'],
             'email' => $data['email'],
             'phone' => '123',
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
         ];
 
         return $preparedData;
