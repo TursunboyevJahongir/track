@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         'phone_confirmed_at',
         'author_id',
         'password',
+        'google_id'
     ];
 
     protected $hidden = [
@@ -42,7 +43,8 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     protected $searchable = [
         'full_name',
         'email',
-        'phone'];
+        'phone'
+    ];
 
     protected $casts = [
         'created_at' => 'datetime:d.m.Y H:i',
