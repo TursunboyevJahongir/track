@@ -31,13 +31,13 @@ return [
     ],
 
     'google' => [
-        'client_id' => '321212311983-as1p85tva9dr2jevtvrbfgensdffnslm.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'http://trackloc.uz/auth/google/callback',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT'),
     ],
     'facebook' => [
-        'client_id' => '1061207521497021', //USE FROM FACEBOOK DEVELOPER ACCOUNT
-        'client_secret' => '45b945926ab6b5fdb97d9c258df52bef', //USE FROM FACEBOOK DEVELOPER ACCOUNT
-        'redirect' => 'http://trackloc.uz/facebook/callback'
+        'client_id' => env('FACEBOOK_CLIENT_ID'), //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'client_secret' =>env('FACEBOOK_CLIENT_SECRET'), //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'redirect' => env('FACEBOOK_REDIRECT')
     ],
 ];
