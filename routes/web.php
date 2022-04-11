@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('auth/google', [GoogleController::class,'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class,'handleGoogleCallback']);
+
+Route::prefix('facebook')->name('facebook.')->group( function(){
+    Route::get('auth', [FacebookController::class, 'loginUsingFacebook'])->name('login');
+    Route::get('callback', [FaceBookController::class, 'callbackFromFacebook'])->name('callback');
+});

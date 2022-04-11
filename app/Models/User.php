@@ -28,7 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         'phone_confirmed_at',
         'author_id',
         'password',
-        'google_id'
+        'google_id',
+        'facebook_id'
     ];
 
     protected $hidden = [

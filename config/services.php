@@ -35,4 +35,9 @@ return [
         'client_secret' => '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',
         'redirect' => 'http://trackloc.uz/auth/google/callback',
     ],
+    'facebook' => [
+        'client_id' => '1061207521497021', //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'client_secret' => '45b945926ab6b5fdb97d9c258df52bef', //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'redirect' => 'http://trackloc.uz/facebook/callback'
+    ],
 ];
