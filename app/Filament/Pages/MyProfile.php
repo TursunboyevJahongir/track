@@ -2,14 +2,17 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Resource;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Pages\Page;
 use Illuminate\Support\Facades\Hash;
 
-class MyProfile extends \JeffGreco13\FilamentBreezy\Pages\MyProfile
+class MyProfile extends Page
 {
-    protected static ?string $navigationIcon = "heroicon-o-document-text"; //config
-    protected static string $view = "filament-breezy::filament.pages.my-profile";
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
+    protected static string $view = 'filament.pages.my-profile';
 
     public User $user;
     public $new_password;
@@ -43,16 +46,30 @@ class MyProfile extends \JeffGreco13\FilamentBreezy\Pages\MyProfile
     protected function getUpdateProfileFormSchema(): array
     {
         return [
-            Forms\Components\TextInput::make("name")
+            Forms\Components\FileUpload::make("avatar")->disk('public')
+                ->directory('uploads/avatars')->avatar()->afterStateHydrated(fn($state) => public_path($state))
+                ->label(__('filament-breezy::default.fields.name')),
+
+            Forms\Components\TextInput::make("full_name")
                 ->label(__('filament-breezy::default.fields.name')),
             Forms\Components\TextInput::make("email")->unique(ignorable: $this->user)
                 ->label(__('filament-breezy::default.fields.email')),
+            Forms\Components\TextInput::make("phone")
+                ->label(__('auth.phone_number')),
         ];
     }
 
     public function updateProfile()
     {
         $this->user->update($this->updateProfileForm->getState());
+        $avatar = $this->updateProfileForm->getState()['avatar'];
+        $this->user->avatar()->create([
+            'additional_identifier' => 'avatar',
+            'type' => 'image',
+            'path_original' => $avatar,
+            'path_1024' =>  $avatar,
+            'path_512' => $avatar,
+        ]);
         $this->notify("success", __('filament-breezy::default.profile.personal_info.notify'));
     }
 

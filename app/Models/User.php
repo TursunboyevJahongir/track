@@ -29,7 +29,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         'phone_confirmed_at',
         'author_id',
         'password',
-        'avatar',
         'google_id',
         'facebook_id'
     ];
@@ -91,6 +90,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
 
     public function getFilamentAvatarUrl(): ?string
     {
-       return $this->avatar;
+       return $this->avatar->path_original ?? '';
     }
 }

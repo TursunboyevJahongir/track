@@ -21,5 +21,6 @@ return [
     'login_with_facebook' => 'Войти через Facebook',
     'or' => 'или',
     'registration.heading' => 'Создать новый аккаунт',
-    'forgot_password_link' => 'Забыли пароль?'
+    'forgot_password_link' => 'Забыли пароль?',
+    'phone_number' => 'Номер телефона'
 ];

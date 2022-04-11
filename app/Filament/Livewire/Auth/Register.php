@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 
 class Register extends Component implements Forms\Contracts\HasForms
@@ -47,7 +48,7 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->label(__('filament-breezy::default.fields.password'))
                 ->required()
                 ->password()
-                ->rules(config('filament-breezy.password_rules')),
+                ->rules([Password::min(8)->letters()->numbers()]),
             Forms\Components\TextInput::make('password_confirm')
                 ->label(__('filament-breezy::default.fields.password_confirm'))
                 ->required()

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Core\Contracts\{CoreRepositoryContract, CoreServiceContract};
 use App\Core\Repositories\CoreRepository;
 use App\Core\Services\CoreService;
+use Filament\Navigation\UserMenuItem;
 use App\Repositories\{
     ResourceRepository,
     SmsRepository,
@@ -25,9 +26,11 @@ use App\Services\{
 use App\Services\Sms\SmsService;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *

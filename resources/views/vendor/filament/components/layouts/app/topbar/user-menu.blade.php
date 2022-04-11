@@ -81,8 +81,8 @@
             @endphp
 
             <x-filament::dropdown.item
-                :color="$accountItem?->getColor() ?? 'secondary'"
-                :icon="$accountItem?->getIcon() ?? 'heroicon-s-user-circle'"
+                :color="'secondary'"
+                :icon="'heroicon-s-user-circle'"
                 :href="$accountItem?->getUrl()"
                 tag="a"
             >
@@ -113,6 +113,7 @@
                     </x-filament::dropdown.item>
                 @endif
             @endforeach
+
 
             <x-filament::dropdown.item
                 :color="$logoutItem?->getColor() ?? 'secondary'"
