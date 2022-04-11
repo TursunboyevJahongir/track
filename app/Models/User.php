@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Core\Models\Authenticatable;
 use App\Traits\Author;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName,HasAvatar
 {
     use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable;
 
@@ -28,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         'phone_confirmed_at',
         'author_id',
         'password',
+        'avatar',
         'google_id',
         'facebook_id'
     ];
@@ -86,4 +88,9 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         return $this->full_name;
     }
 
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+       return $this->avatar;
+    }
 }

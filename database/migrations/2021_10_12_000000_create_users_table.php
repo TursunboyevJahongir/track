@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('phone_confirmed')->default(false);
             $table->dateTime('phone_confirmed_at')->nullable();
             $table->foreignId('author_id')->nullable()->constrained('users');
+            $table->string('avatar')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

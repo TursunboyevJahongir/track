@@ -6,9 +6,9 @@
         </h2>
         @if(config("filament-breezy.enable_registration"))
         <p class="mt-2 text-sm text-center">
-            {{ __('filament-breezy::default.or') }}
+            {{ __('auth.or') }}
             <a class="text-primary-600" href="{{route('register')}}">
-                {{ strtolower(__('filament-breezy::default.registration.heading')) }}
+                {{ strtolower(__('auth.registration.heading')) }}
             </a>
         </p>
         @endif
@@ -21,7 +21,8 @@
     </x-filament::button>
 
     <div class="text-center">
-        <a class="text-primary-600 hover:text-primary-700" href="{{route('password.request')}}">{{ __('filament-breezy::default.login.forgot_password_link') }}</a>
+        <a class="text-primary-600 hover:text-primary-700" href="{{route('password.request')}}">
+            {{ __('auth.forgot_password_link') }}</a>
     </div>
 
     <a href="{{route('auth.google')}}" class="inline-flex items-center justify-center font-medium tracking-tight rounded-lg border transition-colors focus:outline-none focus:ring-inset filament-button h-9 px-4 text-white shadow bg-light-600 hover:bg-light-500 w-full">

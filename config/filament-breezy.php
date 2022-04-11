@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     | Whether or not to automatically register the My Profile page. Set this to false to extend and create your own page.
     */
-    "enable_profile_page" => true,
+    "enable_profile_page" => false,
     /*
     | Whether or not to automatically link the My Profile page in the user menu of Filament.
     */

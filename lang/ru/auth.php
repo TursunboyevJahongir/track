@@ -18,5 +18,8 @@ return [
     'profile_requires_activation' => 'Вы не активированы в системе - обратитесь к администратору',
     'profile_banned' => 'Ваш аккаунт заблокирован',
     'login_with_google' => 'Войти через Google',
-    'login_with_facebook' => 'Войти через Facebook'
+    'login_with_facebook' => 'Войти через Facebook',
+    'or' => 'или',
+    'registration.heading' => 'Создать новый аккаунт',
+    'forgot_password_link' => 'Забыли пароль?'
 ];
