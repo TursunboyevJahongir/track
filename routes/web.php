@@ -16,14 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('auth/google', [GoogleController::class,'redirectToGoogle'])->name('auth.google');
-Route::get('auth/google/callback', [GoogleController::class,'handleGoogleCallback']);
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
-Route::prefix('facebook')->name('facebook.')->group( function(){
+Route::prefix('facebook')->name('facebook.')->group(function () {
     Route::get('auth', [FacebookController::class, 'loginUsingFacebook'])->name('login');
     Route::get('callback', [FaceBookController::class, 'callbackFromFacebook'])->name('callback');
 });
 
-Route::group(['middleware' => 'auth'],function (){
-    Route::get('my-profile',MyProfile::class)->name('filament.pages.my-profile');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('my-profile', MyProfile::class)->name('filament.pages.my-profile');
 });
+
+Route::view('/verify', 'verify')->name('verify');
