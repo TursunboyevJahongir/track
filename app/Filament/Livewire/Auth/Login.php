@@ -39,7 +39,7 @@ class Login extends FilamentLogin
                 ->reactive()
                 ->afterStateUpdated(function (Closure $set, $state) {
                     app()->setLocale($state);
-                    request()->session('locale',$state);
+                    request()->session()->put('locale',$state);
                 })
                 ->disablePlaceholderSelection()
                 ->label(__('app.change_lang'))

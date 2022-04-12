@@ -18,7 +18,7 @@ class Register extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     public $full_name;
-    public $email;
+    public $phone;
     public $password;
     public $password_confirm;
     public $lang;
@@ -33,7 +33,7 @@ class Register extends Component implements Forms\Contracts\HasForms
     public function messages(): array
     {
         return [
-            'email.unique' => __('filament-breezy::default.registration.notification_unique'),
+            'phone.unique' => __('filament-breezy::default.registration.notification_unique'),
         ];
     }
 
@@ -43,10 +43,9 @@ class Register extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('full_name')
                 ->label(__('filament-breezy::default.fields.name'))
                 ->required(),
-            Forms\Components\TextInput::make('email')
-                ->label(__('filament-breezy::default.fields.email'))
+            Forms\Components\TextInput::make('phone')
+                ->label(__('auth.phone_number'))
                 ->required()
-                ->email()
                 ->unique(table: config('filament-breezy.user_model')),
             Forms\Components\TextInput::make('password')
                 ->label(__('filament-breezy::default.fields.password'))
@@ -68,7 +67,7 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->reactive()
                 ->afterStateUpdated(function (Closure $set, $state) {
                     app()->setLocale($state);
-                    request()->session('locale',$state);
+                    request()->session()->put('locale',$state);
                 })
                 ->disablePlaceholderSelection()
                 ->label(__('app.change_lang')),
