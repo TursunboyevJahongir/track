@@ -3,6 +3,7 @@
 use App\Filament\Pages\MyProfile;
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::prefix('facebook')->name('facebook.')->group( function(){
     Route::get('auth', [FacebookController::class, 'loginUsingFacebook'])->name('login');
     Route::get('callback', [FaceBookController::class, 'callbackFromFacebook'])->name('callback');
 });
+
+Route::get('language/{locale}',[LanguageController::class,'set']);
 
 Route::group(['middleware' => 'auth'],function (){
     Route::get('my-profile',MyProfile::class)->name('filament.pages.my-profile');

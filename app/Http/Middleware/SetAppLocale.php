@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Enums\AvailableLocalesEnum;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SetAppLocale
 {
@@ -18,13 +19,10 @@ class SetAppLocale
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $locale = config('app.main_locale');
-        $sentLocale = $request->header('accept-language');
-        if ($request->hasHeader('accept-language') && in_array($sentLocale, AvailableLocalesEnum::toArray(), true)) {
-            $locale = $sentLocale;
+        if (session()->get('locale')) {
+            app()->setLocale(\session());
+            dd($next);
         }
-        app()->setLocale($locale);
-
         return $next($request);
     }
 }

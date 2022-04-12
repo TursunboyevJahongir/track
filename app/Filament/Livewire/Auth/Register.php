@@ -2,7 +2,10 @@
 
 namespace App\Filament\Livewire\Auth;
 
+use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Pages\Actions\Modal\Actions\ButtonAction;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +21,7 @@ class Register extends Component implements Forms\Contracts\HasForms
     public $email;
     public $password;
     public $password_confirm;
+    public $lang;
 
     public function mount()
     {
@@ -54,7 +58,26 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->required()
                 ->password()
                 ->same('password'),
+            Forms\Components\Select::make('lang')
+                ->options([
+                    'ru' => 'Ru',
+                    'uz' => 'Uz',
+                    'en' => 'En',
+                ])->default($this->lang ?? config('app.locale'))->reactive()
+                ->reactive()
+                ->afterStateUpdated(function (Closure $set, $state) {
+                    app()->setLocale($state);
+                    session()->put('locale',$state);
+                    \Session::save();
+                })
+                ->disablePlaceholderSelection()
+                ->label(__('app.change_lang'))
+                ->required(),
         ];
+    }
+
+    public function setLan($state){
+        dd($state);
     }
 
     protected function prepareModelData($data): array
@@ -68,6 +91,8 @@ class Register extends Component implements Forms\Contracts\HasForms
 
         return $preparedData;
     }
+
+
 
     public function register()
     {
