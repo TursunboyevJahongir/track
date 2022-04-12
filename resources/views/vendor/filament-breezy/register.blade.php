@@ -28,4 +28,5 @@
         {{__('auth.login_with_facebook')}}
       </span></a>
 
+    @livewire('select-lang')
 </x-filament-breezy::auth-card>

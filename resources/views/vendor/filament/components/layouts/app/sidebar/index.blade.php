@@ -31,7 +31,7 @@
 
         </a>
         <div class="ml-auto">
-            <x-filament::layouts.app.topbar.select-language />
+            @livewire('select-lang')
         </div>
         @if (config('filament.layout.sidebar.is_collapsible_on_desktop'))
             <a

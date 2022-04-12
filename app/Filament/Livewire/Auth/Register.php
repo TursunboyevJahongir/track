@@ -60,20 +60,6 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->required()
                 ->password()
                 ->same('password'),
-
-            Forms\Components\Select::make('lang')
-                ->options([
-                    'uz' => __('app.uz'),
-                    'ru' => __('app.ru'),
-                    'en' => __('app.en'),
-                ])
-                ->reactive()
-                ->afterStateUpdated(function (Closure $set, $state) {
-                    app()->setLocale($state);
-                    request()->session()->put('locale',$state);
-                })
-                ->disablePlaceholderSelection()
-                ->label(__('app.change_lang')),
         ];
     }
 

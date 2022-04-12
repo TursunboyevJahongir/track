@@ -34,4 +34,6 @@
         </span>
     </a>
 
+    @livewire('select-lang')
+
 </x-filament-breezy::auth-card>
