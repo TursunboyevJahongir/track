@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
+use Filament\Forms\Components\TextInput;
+use Request;
 
 class Register extends Component implements Forms\Contracts\HasForms
 {
@@ -46,7 +48,8 @@ class Register extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('phone')
                 ->label(__('auth.phone_number'))
                 ->required()
-                ->unique(table: config('filament-breezy.user_model')),
+                ->unique(table: config('filament-breezy.user_model'))
+                ->mask(fn (TextInput\Mask $mask) => $mask->pattern('+{998}(00)000-00-00')),
             Forms\Components\TextInput::make('password')
                 ->label(__('filament-breezy::default.fields.password'))
                 ->required()

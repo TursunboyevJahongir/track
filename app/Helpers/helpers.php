@@ -61,6 +61,5 @@ if (!function_exists('moneyFormatter')) {
 
             return [$column => $random, $column . "_path" => "/uploads/$path/barcodes/$random.svg"];
         }
-
     }
 }
