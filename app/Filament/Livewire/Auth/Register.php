@@ -81,8 +81,7 @@ class Register extends Component implements Forms\Contracts\HasForms
     {
         $preparedData = [
             'full_name' => $data['full_name'],
-            'email' => $data['email'],
-            'phone' => '123',
+            'phone' => $data['phone'],
             'password' => $data['password'],
         ];
 

@@ -1,7 +1,3 @@
-@php
-    $user = \Filament\Facades\Filament::auth()->user();
-@endphp
-
 <div
     x-data="{
         isOpen: false,
@@ -55,7 +51,7 @@
             'block flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center',
             'dark:bg-gray-900' => config('filament.dark_mode'),
         ])
-        style="background-image: url('{{ \Filament\Facades\Filament::getUserAvatarUrl($user) }}')"
+        style="background-image: url('https://ui-avatars.com/api/?name={{config('app.locale')}}&color=FFFFFF&background=111827')"
     ></button>
 
 
@@ -75,56 +71,19 @@
             'py-1 space-y-1 overflow-hidden bg-white shadow rounded-xl',
             'dark:border-gray-600 dark:bg-gray-700' => config('filament.dark_mode'),
         ])>
-            @php
-                $items = \Filament\Facades\Filament::getUserMenuItems();
-                $accountItem = $items['account'] ?? null;
-                $logoutItem = $items['logout'] ?? null;
-            @endphp
 
-            <x-filament::dropdown.item
-                :color="'secondary'"
-                :icon="'heroicon-s-user-circle'"
-                :href="$accountItem?->getUrl()"
-                tag="a"
-            >
-                {{ $accountItem?->getLabel() ?? \Filament\Facades\Filament::getUserName($user) }}
+            <x-filament::dropdown.item :color="'secondary'" :href="'/language/uz'" tag="a" >
+                {{__('app.uz')}}
             </x-filament::dropdown.item>
 
-            <div>
-                @if (config('filament.dark_mode'))
-                    <x-filament::dropdown.item icon="heroicon-s-moon" x-show="theme === 'dark'" x-on:click="mode = 'manual'; theme = 'light'">
-                        {{ __('filament::layout.buttons.light_mode.label') }}
-                    </x-filament::dropdown.item>
-
-                    <x-filament::dropdown.item icon="heroicon-s-sun" x-show="theme === 'light'" x-on:click="mode = 'manual'; theme = 'dark'">
-                        {{ __('filament::layout.buttons.dark_mode.label') }}
-                    </x-filament::dropdown.item>
-                @endif
-            </div>
-
-            @foreach ($items as $key => $item)
-                @if ($key !== 'account' && $key !== 'logout')
-                    <x-filament::dropdown.item
-                        :color="$item->getColor() ?? 'secondary'"
-                        :icon="$item->getIcon()"
-                        :href="$item->getUrl()"
-                        tag="a"
-                    >
-                        {{ $item->getLabel() }}
-                    </x-filament::dropdown.item>
-                @endif
-            @endforeach
-
-
-            <x-filament::dropdown.item
-                :color="$logoutItem?->getColor() ?? 'secondary'"
-                :icon="$logoutItem?->getIcon() ?? 'heroicon-s-logout'"
-                :action="$logoutItem?->getUrl() ?? route('filament.auth.logout')"
-                method="post"
-                tag="form"
-            >
-                {{ $logoutItem?->getLabel() ?? __('filament::layout.buttons.logout.label') }}
+            <x-filament::dropdown.item :color="'secondary'" :href="'/language/ru'" tag="a" >
+                {{__('app.ru')}}
             </x-filament::dropdown.item>
+
+            <x-filament::dropdown.item :color="'secondary'" :href="'/language/en'" tag="a" >
+                {{__('app.en')}}
+            </x-filament::dropdown.item>
+
         </ul>
 
     </div>

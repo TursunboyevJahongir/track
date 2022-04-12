@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Enums\AvailableLocalesEnum;
 
 class LanguageController extends Controller
 {
     public function set($locale){
-        app()->setLocale($locale);
-        session()->put('locale',$locale);
-        \Session::save();
+        if (in_array($locale,AvailableLocalesEnum::toArray())){
+            app()->setLocale($locale);
+            session()->put('locale',$locale);
+            \Session::save();
+        }
         return back();
     }
 }

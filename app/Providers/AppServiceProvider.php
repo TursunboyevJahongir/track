@@ -2,12 +2,9 @@
 
 namespace App\Providers;
 
-use App\Http\Middleware\SetAppLocale;
 use App\Core\Contracts\{CoreRepositoryContract, CoreServiceContract};
 use App\Core\Repositories\CoreRepository;
 use App\Core\Services\CoreService;
-use Filament\Navigation\UserMenuItem;
-use GuzzleHttp\Middleware;
 use App\Repositories\{
     ResourceRepository,
     SmsRepository,
