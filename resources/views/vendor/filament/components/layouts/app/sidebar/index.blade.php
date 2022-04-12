@@ -28,8 +28,11 @@
             @endif
         >
             <x-filament::brand />
-        </a>
 
+        </a>
+        <div class="ml-auto">
+            <x-filament::layouts.app.topbar.select-language />
+        </div>
         @if (config('filament.layout.sidebar.is_collapsible_on_desktop'))
             <a
                 class="block w-full text-center"

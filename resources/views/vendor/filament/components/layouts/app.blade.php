@@ -57,7 +57,7 @@
 
                         @livewire('filament.core.global-search')
 
-                        <x-filament::layouts.app.topbar.select-language />
+
                         <x-filament::layouts.app.topbar.user-menu />
                     </div>
                 </div>
