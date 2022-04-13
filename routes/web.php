@@ -29,4 +29,4 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('my-profile',MyProfile::class)->name('filament.pages.my-profile');
 });
 
-Route::get('verify',\App\Http\Livewire\Verify::class);
+Route::get('verify',\App\Http\Livewire\Verify::class)->name('verify');
