@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Models\Authenticatable;
+use App\Helpers\toUpperCast;
 use App\Traits\Author;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone'];
 
     protected $casts = [
+        'full_name' => toUpperCast::class,
         'created_at' => 'datetime:d.m.Y H:i',
         'updated_at' => 'datetime:d.m.Y H:i',
     ];
