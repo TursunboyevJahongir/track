@@ -28,3 +28,5 @@ Route::prefix('facebook')->name('facebook.')->group( function(){
 Route::group(['middleware' => 'auth'],function (){
     Route::get('my-profile',MyProfile::class)->name('filament.pages.my-profile');
 });
+
+Route::get('verfy',\App\Http\Livewire\Verify::class);
