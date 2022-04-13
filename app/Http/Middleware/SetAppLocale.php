@@ -21,7 +21,7 @@ class SetAppLocale
     {
         $locale = config('app.main_locale');
         if ($request->session('locale') &&
-            in_array($request->session()->get('locale'), AvailableLocalesEnum::toArray(), true)) {
+            array_key_exists($request->session()->get('locale'), AvailableLocalesEnum::toArray())) {
             $locale = $request->session()->get('locale');
         }
         app()->setLocale($locale);

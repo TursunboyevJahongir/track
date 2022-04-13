@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\AvailableLocalesEnum;
 use Filament\Facades\Filament;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -24,11 +25,7 @@ class SelectLang extends Component implements HasForms
     {
         return [
             Forms\Components\Select::make('lang')
-                ->options([
-                    'uz' => __('app.uz'),
-                    'ru' => __('app.ru'),
-                    'en' => __('app.en'),
-                ])->disablePlaceholderSelection()
+                ->options(AvailableLocalesEnum::toArray())->disablePlaceholderSelection()
                 ->label(false)
                 ->reactive(),
         ];
