@@ -11,20 +11,25 @@ class Verify extends Component implements HasForms
 {
     use InteractsWithForms;
 
+    public function __construct() {
+
+        parent::__construct();
+    }
+
     public $code;
     public $phone;
     public $seconds;
 
     public function mount(){
         parent::mount();
-        $this->phone = \Auth::user()->phone;
+        $this->phone = auth()->user()->phone;
 
     }
 
     public function getFormSchema(): array
     {
         return [
-            TextInput::make('code')->numeric()->numeric()->autofocus()->label(__('sms.enter_the_code'))
+            TextInput::make('code')->numeric()->autofocus()->label(__('sms.enter_the_code'))
         ];
     }
 

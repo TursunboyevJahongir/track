@@ -2,6 +2,8 @@
 
 namespace App\Filament\Livewire\Auth;
 
+use App\Events\SmsConfirmSend;
+use App\Models\User;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -23,7 +25,6 @@ class Register extends Component implements Forms\Contracts\HasForms
     public $phone;
     public $password;
     public $password_confirm;
-    public $lang;
 
     public function mount()
     {
@@ -49,7 +50,7 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->label(__('auth.phone_number'))
                 ->required()
                 ->unique(table: config('filament-breezy.user_model'))
-                ->mask(fn (TextInput\Mask $mask) => $mask->pattern('+{998}(00)000-00-00')),
+                ->mask(fn(TextInput\Mask $mask) => $mask->pattern('+{998}(00)000-00-00')),
             Forms\Components\TextInput::make('password')
                 ->label(__('filament-breezy::default.fields.password'))
                 ->required()
@@ -67,25 +68,29 @@ class Register extends Component implements Forms\Contracts\HasForms
     {
         $preparedData = [
             'full_name' => $data['full_name'],
-            'phone' => $data['phone'],
-            'password' => $data['password'],
+            'phone'     => $data['phone'],
+            'password'  => $data['password'],
+            'author_id' => null,
         ];
 
         return $preparedData;
     }
 
 
-
     public function register()
     {
         $preparedData = $this->prepareModelData($this->form->getState());
+        $user = User::create($preparedData);
 
-        $user = config('filament-breezy.user_model')::create($preparedData);
+        try {
+            event(new SmsConfirmSend($user->phone));
+        } catch (\Exception $e) {
+            return abort($e->getCode(), $e->getMessage());
+        }
 
-        event(new Registered($user));
         Auth::login($user, true);
 
-        return redirect()->to(config('filament-breezy.registration_redirect_url'));
+        return route('verify');
     }
 
     public function render(): View
