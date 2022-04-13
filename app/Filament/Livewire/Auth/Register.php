@@ -2,21 +2,28 @@
 
 namespace App\Filament\Livewire\Auth;
 
+use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Pages\Actions\Modal\Actions\ButtonAction;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
+use Filament\Forms\Components\TextInput;
+use Request;
 
 class Register extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
     public $full_name;
-    public $email;
+    public $phone;
     public $password;
     public $password_confirm;
+    public $lang;
 
     public function mount()
     {
@@ -28,7 +35,7 @@ class Register extends Component implements Forms\Contracts\HasForms
     public function messages(): array
     {
         return [
-            'email.unique' => __('filament-breezy::default.registration.notification_unique'),
+            'phone.unique' => __('filament-breezy::default.registration.notification_unique'),
         ];
     }
 
@@ -38,16 +45,16 @@ class Register extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('full_name')
                 ->label(__('filament-breezy::default.fields.name'))
                 ->required(),
-            Forms\Components\TextInput::make('email')
-                ->label(__('filament-breezy::default.fields.email'))
+            Forms\Components\TextInput::make('phone')
+                ->label(__('auth.phone_number'))
                 ->required()
-                ->email()
-                ->unique(table: config('filament-breezy.user_model')),
+                ->unique(table: config('filament-breezy.user_model'))
+                ->mask(fn (TextInput\Mask $mask) => $mask->pattern('+{998}(00)000-00-00')),
             Forms\Components\TextInput::make('password')
                 ->label(__('filament-breezy::default.fields.password'))
                 ->required()
                 ->password()
-                ->rules(config('filament-breezy.password_rules')),
+                ->rules([Password::min(8)->letters()->numbers()]),
             Forms\Components\TextInput::make('password_confirm')
                 ->label(__('filament-breezy::default.fields.password_confirm'))
                 ->required()
@@ -60,13 +67,14 @@ class Register extends Component implements Forms\Contracts\HasForms
     {
         $preparedData = [
             'full_name' => $data['full_name'],
-            'email' => $data['email'],
-            'phone' => '123',
-            'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'password' => $data['password'],
         ];
 
         return $preparedData;
     }
+
+
 
     public function register()
     {

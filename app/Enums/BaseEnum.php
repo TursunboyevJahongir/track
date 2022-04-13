@@ -14,7 +14,7 @@ class BaseEnum
     {
         $class = new \ReflectionClass(static::class);
 
-        return array_values($class->getConstants());
+        return $class->getConstants();
     }
 
     /**

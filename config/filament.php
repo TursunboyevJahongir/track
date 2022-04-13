@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\PhoneVerify;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -89,8 +90,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            "login" =>
-                \App\Filament\Livewire\Auth\Login::class,
+            "login" => \App\Filament\Livewire\Auth\Login::class
         ],
     ],
 
@@ -172,7 +172,7 @@ return [
     |
     */
 
-    'dark_mode' => false,
+    'dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -189,17 +189,17 @@ return [
     'layout' => [
         'forms' => [
             'actions' => [
-                'alignment' => 'left',
+                'alignment' => 'right',
             ],
             'have_inline_labels' => false,
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
         'max_content_width' => null,
         'notifications' => [
             'vertical_alignment' => 'top',
-            'alignment' => 'center',
+            'alignment' => 'right',
         ],
         'sidebar' => [
             'is_collapsible_on_desktop' => false,
@@ -270,6 +270,7 @@ return [
             SubstituteBindings::class,
             DispatchServingFilamentEvent::class,
             MirrorConfigToSubpackages::class,
+            PhoneVerify::class
         ],
     ],
 

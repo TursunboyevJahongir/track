@@ -1,7 +1,6 @@
 <x-filament::page>
 
     <x-filament-breezy::grid-section class="mt-8">
-
         <x-slot name="title">
             {{ __('filament-breezy::default.profile.personal_info.heading') }}
         </x-slot>

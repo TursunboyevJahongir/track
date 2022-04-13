@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Core\Models\Authenticatable;
 use App\Helpers\toUpperCast;
 use App\Traits\Author;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{MorphMany, MorphOne};
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName,HasAvatar
 {
     use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable;
 
@@ -27,6 +30,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_confirmed_at',
         'author_id',
         'password',
+        'google_id',
+        'facebook_id'
     ];
 
     protected $hidden = [
@@ -41,7 +46,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $searchable = [
         'full_name',
         'email',
-        'phone'];
+        'phone'
+    ];
 
     protected $casts = [
         'full_name' => toUpperCast::class,
@@ -72,4 +78,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(RefreshToken::class, 'user');
     }
 
+    public function canAccessFilament(): bool
+    {
+        #todo: change to roles
+        return true;
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->full_name;
+    }
+
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+       return $this->avatar->path_original ?? '';
+    }
 }
