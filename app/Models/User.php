@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Models\Authenticatable;
+use App\Helpers\toUpperCast;
 use App\Traits\Author;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -49,6 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     ];
 
     protected $casts = [
+        'full_name' => toUpperCast::class,
         'created_at' => 'datetime:d.m.Y H:i',
         'updated_at' => 'datetime:d.m.Y H:i',
     ];

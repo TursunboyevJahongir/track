@@ -21,11 +21,13 @@ class MyProfile extends Page
     public $abilities = [];
     public $plain_text_token;
     public $hasTeams;
+    public $avatar;
 
     public function mount()
     {
         $this->user = auth()->user();
         $this->updateProfileForm->fill($this->user->toArray());
+        $this->fill(['avatar' => auth()->user()->avatar->path_original]);
     }
 
     protected function getForms(): array
@@ -47,9 +49,8 @@ class MyProfile extends Page
     {
         return [
             Forms\Components\FileUpload::make("avatar")->disk('public')
-                ->directory('uploads/avatars')->avatar()->afterStateHydrated(fn($state) => public_path($state))
+                ->directory('uploads/avatar')->avatar()
                 ->label(__('filament-breezy::default.fields.name')),
-
             Forms\Components\TextInput::make("full_name")
                 ->label(__('filament-breezy::default.fields.name')),
             Forms\Components\TextInput::make("email")->unique(ignorable: $this->user)
