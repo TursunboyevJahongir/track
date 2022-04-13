@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\PhoneVerify;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -269,6 +270,7 @@ return [
             SubstituteBindings::class,
             DispatchServingFilamentEvent::class,
             MirrorConfigToSubpackages::class,
+            PhoneVerify::class
         ],
     ],
 

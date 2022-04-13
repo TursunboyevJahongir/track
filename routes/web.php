@@ -3,7 +3,7 @@
 use App\Filament\Pages\MyProfile;
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\LanguageController;
+use App\Http\Livewire\Verify;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +27,6 @@ Route::prefix('facebook')->name('facebook.')->group( function(){
 
 Route::group(['middleware' => 'auth'],function (){
     Route::get('my-profile',MyProfile::class)->name('filament.pages.my-profile');
+    Route::get('verify',Verify::class)->name('verify');
 });
 
-Route::get('verify',\App\Http\Livewire\Verify::class)->name('verify');

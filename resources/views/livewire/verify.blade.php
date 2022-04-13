@@ -14,7 +14,7 @@
     </x-filament::button>
 
     <div class="text-center">
-        {{__('sms.not_expired', ['phone' => '+998975130333', 'time' => '2s'])}}
+        {!! __('sms.not_expired', ['phone' => $this->phone, 'time' => $this->seconds]) !!}
     </div>
 
 </x-filament-breezy::auth-card>

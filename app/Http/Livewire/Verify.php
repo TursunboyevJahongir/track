@@ -12,9 +12,13 @@ class Verify extends Component implements HasForms
     use InteractsWithForms;
 
     public $code;
+    public $phone;
+    public $seconds;
 
     public function mount(){
         parent::mount();
+        $this->phone = \Auth::user()->phone;
+
     }
 
     public function getFormSchema(): array
