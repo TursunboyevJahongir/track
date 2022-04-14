@@ -80,7 +80,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
 
     public function canAccessFilament(): bool
     {
-        #todo: change to roles
         return true;
     }
 

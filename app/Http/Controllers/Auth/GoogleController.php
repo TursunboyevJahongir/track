@@ -41,7 +41,10 @@ class GoogleController extends Controller
                     'full_name' => $user->name,
                     'email' => $user->email,
                     'google_id'=> $user->id,
-                    'password' => '123456'
+                    'password' => '123456',
+                    'is_active' => 1,
+                    'phone' => '',
+                    'phone_confirmed' => 1
                 ]);
 
                 Auth::login($newUser);

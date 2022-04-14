@@ -69,8 +69,7 @@ class Register extends Component implements Forms\Contracts\HasForms
         $preparedData = [
             'full_name' => $data['full_name'],
             'phone'     => $data['phone'],
-            'password'  => $data['password'],
-            'author_id' => null,
+            'password'  => $data['password']
         ];
 
         return $preparedData;
@@ -81,16 +80,8 @@ class Register extends Component implements Forms\Contracts\HasForms
     {
         $preparedData = $this->prepareModelData($this->form->getState());
         $user = User::create($preparedData);
-
-        try {
-            event(new SmsConfirmSend($user->phone));
-        } catch (\Exception $e) {
-            return abort($e->getCode(), $e->getMessage());
-        }
-
         Auth::login($user, true);
-
-        return route('verify');
+        redirect(route('verify'));
     }
 
     public function render(): View

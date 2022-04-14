@@ -19,9 +19,10 @@ Route::prefix('facebook')
         Route::get('auth', 'loginUsingFacebook')->name('login');
         Route::get('callback', 'callbackFromFacebook')->name('callback');
     });
-Route::get('verify', Verify::class)->name('verify');
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('my-profile', MyProfile::class)->name('filament.pages.my-profile');
+    Route::get('verify', Verify::class)->name('verify');
 });
 
