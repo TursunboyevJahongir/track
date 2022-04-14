@@ -7,19 +7,12 @@ use Illuminate\Http\Request;
 
 class PhoneVerify
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
     public function handle(Request $request, Closure $next)
     {
-        $user = \Auth::user();
-        if ($user && $user->phone && $request->path() != 'verify'){
-            return redirect('/verify');
+        if (auth()->check() && !auth()->user()->phone_confirmed) {
+            return redirect(route('verify'));
         }
+
         return $next($request);
     }
 }

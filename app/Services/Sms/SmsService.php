@@ -54,7 +54,7 @@ class SmsService implements SmsServiceContract
             }
         }
 
-        $code = config('sms.sms-code', rand(100000, 999999));
+        $code = config('sms.sms-code');
         $smsConfirm->fill([
                                   'code'         => $code,
                                   'try_count'    => 0,

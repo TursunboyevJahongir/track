@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\IsActive;
 use App\Http\Middleware\PhoneVerify;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -90,7 +91,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            "login" => \App\Filament\Livewire\Auth\Login::class
+            "login" => \App\Filament\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -106,8 +107,8 @@ return [
 
     'pages' => [
         'namespace' => 'App\\Filament\\Pages',
-        'path' => app_path('Filament/Pages'),
-        'register' => [
+        'path'      => app_path('Filament/Pages'),
+        'register'  => [
             Pages\Dashboard::class,
         ],
     ],
@@ -124,8 +125,8 @@ return [
 
     'resources' => [
         'namespace' => 'App\\Filament\\Resources',
-        'path' => app_path('Filament/Resources'),
-        'register' => [],
+        'path'      => app_path('Filament/Resources'),
+        'register'  => [],
     ],
 
     /*
@@ -140,8 +141,8 @@ return [
 
     'widgets' => [
         'namespace' => 'App\\Filament\\Widgets',
-        'path' => app_path('Filament/Widgets'),
-        'register' => [
+        'path'      => app_path('Filament/Widgets'),
+        'register'  => [
             Widgets\AccountWidget::class,
             Widgets\FilamentInfoWidget::class,
         ],
@@ -159,7 +160,7 @@ return [
 
     'livewire' => [
         'namespace' => 'App\\Filament',
-        'path' => app_path('Filament'),
+        'path'      => app_path('Filament'),
     ],
 
     /*
@@ -187,24 +188,24 @@ return [
     */
 
     'layout' => [
-        'forms' => [
-            'actions' => [
+        'forms'             => [
+            'actions'            => [
                 'alignment' => 'right',
             ],
             'have_inline_labels' => false,
         ],
-        'footer' => [
+        'footer'            => [
             'should_show_logo' => false,
         ],
         'max_content_width' => null,
-        'notifications' => [
+        'notifications'     => [
             'vertical_alignment' => 'top',
-            'alignment' => 'right',
+            'alignment'          => 'right',
         ],
-        'sidebar' => [
+        'sidebar'           => [
             'is_collapsible_on_desktop' => false,
         ],
-        'tables' => [
+        'tables'            => [
             'actions' => [
                 'type' => \Filament\Tables\Actions\LinkAction::class,
             ],
@@ -270,7 +271,9 @@ return [
             SubstituteBindings::class,
             DispatchServingFilamentEvent::class,
             MirrorConfigToSubpackages::class,
-            PhoneVerify::class
+
+            PhoneVerify::class,
+            IsActive::class,
         ],
     ],
 
