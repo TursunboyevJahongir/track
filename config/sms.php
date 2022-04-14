@@ -12,5 +12,5 @@ return [
         'sms-login'    => env('ETC_SMS_LOGIN'),
         'sms-password' => env('ETC_SMS_PASSWORD'),
 
-        'sms-code' => env('SMS_CODE', rand(100000, 999999)),
+        'sms-code' => env('SMS_CODE', rand(1000, 9999)),
 ];

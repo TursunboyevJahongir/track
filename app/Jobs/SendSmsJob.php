@@ -36,6 +36,6 @@ class SendSmsJob implements ShouldQueue
      */
     public function handle(SendService $smsService): void
     {
-        $smsService($this->smsConfirm->phone, $this->smsConfirm->code . '-vash kod podtverjdeniya nomera v Mobile Pos, dlya spravki zvonite 94 2155577');
+        $smsService($this->smsConfirm->phone, $this->smsConfirm->code . '-vash kod podtverjdeniya nomera v Mobile Pos, dlya spravki zvonite 94 2157788');
     }
 }

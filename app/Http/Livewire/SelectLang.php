@@ -36,10 +36,12 @@ class SelectLang extends Component implements HasForms
         return view('livewire.select-lang');
     }
 
-    public function updatedLang($value){
+    public function updatedLang($value)
+    {
         app()->setLocale($value);
         request()->session()->put('locale', $value);
-        Filament::notify('success',__('messages.success'),true);
+        Filament::notify('success', __('messages.success'), true);
+
         return $this->redirect(url()->previous());
     }
 }

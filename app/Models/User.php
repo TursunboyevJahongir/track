@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName,HasAvatar
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName, HasAvatar
 {
     use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable;
 
@@ -31,11 +31,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
         'author_id',
         'password',
         'google_id',
-        'facebook_id'
+        'facebook_id',
     ];
 
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     protected $dates = [
@@ -46,26 +46,26 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     protected $searchable = [
         'full_name',
         'email',
-        'phone'
+        'phone',
     ];
 
     protected $casts = [
-        'full_name' => toUpperCast::class,
+        'full_name'  => toUpperCast::class,
         'created_at' => 'datetime:d.m.Y H:i',
         'updated_at' => 'datetime:d.m.Y H:i',
     ];
 
     public const RESOURCES_IDENTIFIER = 'USER_AVATAR_RESOURCES';
-    public const PATH = 'avatars';
+    public const PATH                 = 'avatars';
 
     public function avatar(): MorphOne
     {
         return $this->morphOne(Resource::class, 'resource')
             ->withDefault([
-                'path_original' => 'images/default/avatar_original.png',
-                'path_1024' => 'images/default/avatar_1024.png',
-                'path_512' => 'images/default/avatar_512.png'
-            ]);
+                              'path_original' => 'images/default/avatar_original.png',
+                              'path_1024'     => 'images/default/avatar_1024.png',
+                              'path_512'      => 'images/default/avatar_512.png',
+                          ]);
     }
 
     public function setPasswordAttribute($password)
@@ -92,6 +92,6 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
 
     public function getFilamentAvatarUrl(): ?string
     {
-       return $this->avatar->path_original ?? '';
+        return $this->avatar->path_original ?? '';
     }
 }
