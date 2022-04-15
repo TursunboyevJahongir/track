@@ -29,4 +29,5 @@ jobs:
           script: |
             cd /var/www/mytrans.uz/data/www/mytrans.uz/track
             git pull
+            php --version
             php artisan optimize
