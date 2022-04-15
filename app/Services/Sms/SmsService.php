@@ -56,12 +56,12 @@ class SmsService implements SmsServiceContract
 
         $code = config('sms.sms-code');
         $smsConfirm->fill([
-                                  'code'         => $code,
-                                  'try_count'    => 0,
-                                  'resend_count' => $smsConfirm->resend_count + 1,
-                                  'phone'        => $phone,
-                                  'old_phone'    => $smsConfirm->old_phone ?? $old_phone,
-                                  'expired_at'   => now()->addMinutes(config('sms.sms-expiry-minutes'))
+                              'code'         => $code,
+                              'try_count'    => 0,
+                              'resend_count' => $smsConfirm->resend_count + 1,
+                              'phone'        => $phone,
+                              'old_phone'    => $smsConfirm->old_phone ?? $old_phone,
+                              'expired_at'   => now()->addMinutes(config('sms.sms-expiry-minutes'))
                           ]);
         empty($smsConfirm->id) ? $smsConfirm->save() : $smsConfirm->update();
 

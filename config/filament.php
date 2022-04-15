@@ -271,7 +271,6 @@ return [
             SubstituteBindings::class,
             DispatchServingFilamentEvent::class,
             MirrorConfigToSubpackages::class,
-
             PhoneVerify::class,
             IsActive::class,
         ],

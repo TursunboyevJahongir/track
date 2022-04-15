@@ -14,7 +14,7 @@ trait Author
     protected static function bootAuthor(): void
     {
         static::creating(function ($query) {
-            $query->author_id = $query->author_id ?? null;
+            $query->author_id = $query->author_id ?? auth()->id();
         });
     }
 
