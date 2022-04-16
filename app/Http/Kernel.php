@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\Http\Middleware\SetAppLocale::class,
+        \App\Http\Middleware\SetAppLocale::class
     ];
 
     /**
@@ -67,7 +67,7 @@ class Kernel extends HttpKernel
         'signed'             => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'           => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'           => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'phoneVerify'        => PhoneVerify::class,
+        'phone_verify'        => PhoneVerify::class,
         'is_active'          => IsActive::class,
         'role'               => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission'         => \Spatie\Permission\Middlewares\PermissionMiddleware::class,

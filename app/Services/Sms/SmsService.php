@@ -21,11 +21,11 @@ class SmsService implements SmsServiceContract
      * @param $phone
      * @param null $old_phone
      *
-     * @return bool
+     * @return \App\Core\Models\CoreModel|SmsConfirm|null
      * @throws CodeNotExpired
      * @throws PhoneBlockedException
      */
-    public function sendConfirm($phone, $old_phone = null): bool
+    public function sendConfirm($phone, $old_phone = null)
     {
         $smsConfirm = $this->repository->findByPhone($phone);
         if ($smsConfirm === null) {
@@ -56,18 +56,18 @@ class SmsService implements SmsServiceContract
 
         $code = config('sms.sms-code');
         $smsConfirm->fill([
-                                  'code'         => $code,
-                                  'try_count'    => 0,
-                                  'resend_count' => $smsConfirm->resend_count + 1,
-                                  'phone'        => $phone,
-                                  'old_phone'    => $smsConfirm->old_phone ?? $old_phone,
-                                  'expired_at'   => now()->addMinutes(config('sms.sms-expiry-minutes'))
+                              'code'         => $code,
+                              'try_count'    => 0,
+                              'resend_count' => $smsConfirm->resend_count + 1,
+                              'phone'        => $phone,
+                              'old_phone'    => $smsConfirm->old_phone ?? $old_phone,
+                              'expired_at'   => now()->addMinutes(config('sms.sms-expiry-minutes'))
                           ]);
         empty($smsConfirm->id) ? $smsConfirm->save() : $smsConfirm->update();
 
-        SendSmsJob::dispatchAfterResponse($smsConfirm);
+        //SendSmsJob::dispatchAfterResponse($smsConfirm);
 
-        return true;
+        return $smsConfirm;
     }
 
     /**

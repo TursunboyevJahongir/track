@@ -9,7 +9,7 @@ class PhoneVerify
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && !auth()->user()->phone_confirmed) {
+        if (!auth()->user()->phone_confirmed) {
             return redirect(route('verify'));
         }
 

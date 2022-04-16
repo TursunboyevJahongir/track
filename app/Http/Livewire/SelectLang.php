@@ -26,14 +26,8 @@ class SelectLang extends Component implements HasForms
         return [
             Forms\Components\Select::make('lang')
                 ->options(AvailableLocalesEnum::toArray())->disablePlaceholderSelection()
-                ->label(false)
-                ->reactive(),
+                ->label(false)->reactive()
         ];
-    }
-
-    public function render()
-    {
-        return view('livewire.select-lang');
     }
 
     public function updatedLang($value)
@@ -41,7 +35,15 @@ class SelectLang extends Component implements HasForms
         app()->setLocale($value);
         request()->session()->put('locale', $value);
         Filament::notify('success', __('messages.success'), true);
-
-        return $this->redirect(url()->previous());
+        $this->redirect(url()->previous());
     }
+
+
+    public function render()
+    {
+        return view('livewire.select-lang');
+    }
+
+
+
 }

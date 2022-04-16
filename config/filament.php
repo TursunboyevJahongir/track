@@ -173,7 +173,7 @@ return [
     |
     */
 
-    'dark_mode' => true,
+    'dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -260,6 +260,8 @@ return [
     'middleware' => [
         'auth' => [
             Authenticate::class,
+            PhoneVerify::class,
+            IsActive::class,
         ],
         'base' => [
             EncryptCookies::class,
@@ -271,9 +273,6 @@ return [
             SubstituteBindings::class,
             DispatchServingFilamentEvent::class,
             MirrorConfigToSubpackages::class,
-
-            PhoneVerify::class,
-            IsActive::class,
         ],
     ],
 

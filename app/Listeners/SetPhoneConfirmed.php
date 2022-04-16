@@ -26,7 +26,7 @@ class SetPhoneConfirmed
      */
     public function handle(PhoneConfirmed $event)
     {
-        $this->repository->update($event->user->id, [
+        $this->repository->update($event->user, [
             'is_active' => true,
             'phone_confirmed' => true,
             'phone_confirmed_at' => now()]);
