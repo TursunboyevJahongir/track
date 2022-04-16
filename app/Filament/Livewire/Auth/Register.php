@@ -16,6 +16,7 @@ class Register extends Component implements Forms\Contracts\HasForms
 
     public $full_name;
     public $phone;
+    public $email;
     public $password;
     public $password_confirm;
     public $author_id;
@@ -38,41 +39,30 @@ class Register extends Component implements Forms\Contracts\HasForms
     {
         return [
             Forms\Components\TextInput::make('full_name')
-                ->label(__('filament-breezy::default.fields.name'))
+                ->label(__('auth.full_name'))
                 ->required(),
             Forms\Components\TextInput::make('phone')
                 ->label(__('auth.phone_number'))->required()
                 ->unique(config('filament-breezy.user_model'))
                 ->mask(fn(TextInput\Mask $mask) => $mask->pattern('+{998}(00)000-00-00')),
+            Forms\Components\TextInput::make('email')->email()->nullable(),
             Forms\Components\TextInput::make('password')
-                ->label(__('filament-breezy::default.fields.password'))
+                ->label(__('auth.enter_password'))
                 ->required()->password()
                 ->rules([Password::min(8)->letters()->numbers()]),
             Forms\Components\TextInput::make('password_confirm')
-                ->label(__('filament-breezy::default.fields.password_confirm'))
+                ->label(__('auth.confirm_password'))
                 ->required()->password()
                 ->same('password'),
             Forms\Components\Hidden::make('author_id')->default(null),
         ];
     }
 
-    protected function prepareModelData($data): array
-    {
-        $preparedData = [
-            'full_name' => $data['full_name'],
-            'phone'     => $data['phone'],
-            'password'  => $data['password'],
-            'author_id' => $data['author_id'],
-        ];
-
-        return $preparedData;
-    }
 
 
     public function register()
     {
-        $preparedData = $this->prepareModelData($this->form->getState());
-        $user         = User::create($preparedData);
+        $user         = User::create($this->form->getState());
         Auth::login($user, true);
         $this->redirect(route('verify'));
     }
