@@ -22,5 +22,6 @@ return [
     'or' => 'или',
     'registration.heading' => 'Создать новый аккаунт',
     'forgot_password_link' => 'Забыли пароль?',
-    'phone_number' => 'Номер телефона'
+    'phone_number' => 'Номер телефона',
+    'you_are_not_logged' => 'Оппс! У вас нет доступа',
 ];
