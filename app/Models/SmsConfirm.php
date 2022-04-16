@@ -16,11 +16,11 @@ class SmsConfirm extends CoreModel
         'try_count',
         'resend_count',
         'expired_at',
-        'unblocked_at'
+        'unblocked_at',
     ];
 
     protected $casts = [
-        'expired_at' => 'datetime',
+        'expired_at'   => 'datetime',
         'unblocked_at' => 'datetime',
     ];
 

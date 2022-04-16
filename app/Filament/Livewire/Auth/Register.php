@@ -74,7 +74,7 @@ class Register extends Component implements Forms\Contracts\HasForms
         $preparedData = $this->prepareModelData($this->form->getState());
         $user         = User::create($preparedData);
         Auth::login($user, true);
-        redirect(route('verify'));
+        $this->redirect(route('verify'));
     }
 
     public function render(): View

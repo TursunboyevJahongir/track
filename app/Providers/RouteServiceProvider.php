@@ -41,7 +41,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('api/v1')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web','is_active','phone_verify'])
                 ->group(base_path('routes/web.php'));
         });
     }

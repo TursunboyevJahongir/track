@@ -23,6 +23,6 @@ class SendConfirmationCode
      */
     public function handle(SmsConfirmSend $event)
     {
-        $this->repository->sendConfirm($event->phone,$event->old_phone);
+        return $this->repository->sendConfirm($event->phone,$event->old_phone);
     }
 }
