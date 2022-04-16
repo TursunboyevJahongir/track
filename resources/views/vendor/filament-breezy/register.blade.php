@@ -18,7 +18,7 @@
     {{ $this->form }}
 
     <x-filament::button type="submit" class="w-full" wire:click="register">
-        {{ __('filament-breezy::default.registration.submit.label') }}
+        {{ __('auth.sign_up') }}
     </x-filament::button>
 
     <a href="{{route('auth.google')}}" class="inline-flex items-center justify-center h-9 w-full loginBtn loginBtn--google">
