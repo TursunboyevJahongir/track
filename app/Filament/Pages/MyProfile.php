@@ -21,7 +21,6 @@ class MyProfile extends Page
     public $abilities = [];
     public $plain_text_token;
     public $hasTeams;
-    public $avatar;
 
     public function mount()
     {
@@ -48,9 +47,6 @@ class MyProfile extends Page
     protected function getUpdateProfileFormSchema(): array
     {
         return [
-            Forms\Components\FileUpload::make("avatar")->disk('public')
-                ->directory('uploads/avatar')->avatar()
-                ->label(__('filament-breezy::default.fields.name')),
             Forms\Components\TextInput::make("full_name")
                 ->label(__('filament-breezy::default.fields.name')),
             Forms\Components\TextInput::make("email")->unique(ignorable: $this->user)
@@ -63,14 +59,6 @@ class MyProfile extends Page
     public function updateProfile()
     {
         $this->user->update($this->updateProfileForm->getState());
-        $avatar = $this->updateProfileForm->getState()['avatar'];
-        $this->user->avatar()->create([
-            'additional_identifier' => 'avatar',
-            'type' => 'image',
-            'path_original' => $avatar,
-            'path_1024' =>  $avatar,
-            'path_512' => $avatar,
-        ]);
         $this->notify("success", __('filament-breezy::default.profile.personal_info.notify'));
     }
 

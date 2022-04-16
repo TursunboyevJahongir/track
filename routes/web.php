@@ -1,6 +1,8 @@
 <?php
 
 use App\Filament\Pages\MyProfile;
+use App\Http\Middleware\IsActive;
+use App\Http\Middleware\PhoneVerify;
 use App\Http\Controllers\Auth\{FacebookController, GoogleController};
 use App\Http\Livewire\Verify;
 use Illuminate\Support\Facades\Route;
@@ -28,5 +30,5 @@ Route::middleware('auth')->group(function () {
     Route::get('my-profile', MyProfile::class)
         ->name('filament.pages.my-profile');
     Route::get('verify', Verify::class)->name('verify')
-        ->withoutMiddleware([\App\Http\Middleware\PhoneVerify::class, \App\Http\Middleware\IsActive::class]);
+        ->withoutMiddleware([PhoneVerify::class, IsActive::class]);
 });
