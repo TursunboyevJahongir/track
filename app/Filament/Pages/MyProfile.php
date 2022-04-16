@@ -7,6 +7,7 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Hash;
+use Livewire\TemporaryUploadedFile;
 
 class MyProfile extends Page
 {
@@ -21,12 +22,13 @@ class MyProfile extends Page
     public $abilities = [];
     public $plain_text_token;
     public $hasTeams;
+    public $avatar;
 
     public function mount()
     {
         $this->user = auth()->user();
         $this->updateProfileForm->fill($this->user->toArray());
-        $this->fill(['avatar' => auth()->user()->avatar->path_original]);
+//        $this->fill(['avatar' => '/'.auth()->user()->avatar->path_original]);
     }
 
     protected function getForms(): array
@@ -47,10 +49,13 @@ class MyProfile extends Page
     protected function getUpdateProfileFormSchema(): array
     {
         return [
+            Forms\Components\FileUpload::make('avatar')->withName('/')
+                ->directory('uploads/avatar')->avatar()->visibility('/'),
             Forms\Components\TextInput::make("full_name")
-                ->label(__('filament-breezy::default.fields.name')),
+                ->label(__('auth.full_name')),
             Forms\Components\TextInput::make("email")->unique(ignorable: $this->user)
-                ->label(__('filament-breezy::default.fields.email')),
+                ->label(__('filament-breezy::default.fields.email'))
+                ->disabled(!$this->user->google_id || !$this->user->facebook_id),
             Forms\Components\TextInput::make("phone")
                 ->label(__('auth.phone_number')),
         ];
@@ -58,6 +63,7 @@ class MyProfile extends Page
 
     public function updateProfile()
     {
+//        dd($this->updateProfileForm->getState());
         $this->user->update($this->updateProfileForm->getState());
         $this->notify("success", __('filament-breezy::default.profile.personal_info.notify'));
     }
@@ -66,12 +72,12 @@ class MyProfile extends Page
     {
         return [
             Forms\Components\TextInput::make("new_password")
-                ->label(__('filament-breezy::default.fields.new_password'))
+                ->label(__('auth.enter_password'))
                 ->password()
                 ->rules(config('filament-breezy.password_rules'))
                 ->required(),
             Forms\Components\TextInput::make("new_password_confirmation")
-                ->label(__('filament-breezy::default.fields.new_password_confirmation'))
+                ->label(__('auth.confirm_password'))
                 ->password()
                 ->same("new_password")
                 ->required(),
