@@ -27,8 +27,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
 
           script: |
-            cd /var/www/mytrans.uz/data/www/mytrans.uz
+            cd /var/www/mytrans.uz/data/www/mytrans.uz/track
             git pull
-            composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-            php artisan migrate --force
-            php artisan optimize
+            /var/www/mytrans.uz/data/bin/php /usr/local/bin/composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+            /var/www/mytrans.uz/data/bin/php artisan migrate --force
+            /var/www/mytrans.uz/data/bin/php artisan optimize
