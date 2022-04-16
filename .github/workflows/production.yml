@@ -29,5 +29,6 @@ jobs:
           script: |
             cd /var/www/mytrans.uz/data/www/mytrans.uz/track
             git pull
+            /var/www/mytrans.uz/data/bin/php /usr/local/bin/composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
             /var/www/mytrans.uz/data/bin/php artisan migrate --force
             /var/www/mytrans.uz/data/bin/php artisan optimize
