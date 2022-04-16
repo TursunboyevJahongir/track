@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Core\Traits\Responsable as ResponsableTrait;
+use Filament\Facades\Filament;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Support\Responsable;
@@ -64,72 +65,77 @@ class Handler extends ExceptionHandler
             if (str_contains($message, 'No query results for model')) {
                 $message = 'No records found, try another request';
             }
+
             return $request->expectsJson()
-                ? response()->json(['code' => 404,
-                    'message' => $message,
-                    'data' => []],
-                    404)
+                ? response()->json(['code'    => 404,
+                                    'message' => $message,
+                                    'data'    => []],
+                                   404)
                 : abort(404, $message);
         }
         if ($e instanceof PermissionAlreadyExists) {
             return $request->expectsJson()
-                ? response()->json(['code' => 422,
-                    'message' => "Permission already exists for this guard",
-                    'data' => []],
-                    422)
+                ? response()->json(['code'    => 422,
+                                    'message' => "Permission already exists for this guard",
+                                    'data'    => []],
+                                   422)
                 : abort(422, "Permission already exists for this guard");
         }
         if ($e instanceof AuthorizationException) {
             return $request->expectsJson()
-                ? response()->json(['code' => 403,
-                    'message' => $e->getMessage(),
-                    'data' => []],
-                    403)
+                ? response()->json(['code'    => 403,
+                                    'message' => $e->getMessage(),
+                                    'data'    => []],
+                                   403)
                 : abort(403, $e->getMessage());
         }
 
         if ($e instanceof UnauthorizedException) {
             return $request->expectsJson()
-                ? response()->json(['code' => 422,
-                    'message' => 'You dont have permissions to do this action',
-                    'data' => []],
-                    422)
+                ? response()->json(['code'    => 422,
+                                    'message' => 'You dont have permissions to do this action',
+                                    'data'    => []],
+                                   422)
                 : abort(422, "You dont have permissions to do this action");
         }
         if ($e instanceof RoleAlreadyExists) {
             return $request->expectsJson()
-                ? response()->json(['code' => 422,
-                    'message' => 'This role already exists',
-                    'data' => []],
-                    422)
+                ? response()->json(['code'    => 422,
+                                    'message' => 'This role already exists',
+                                    'data'    => []],
+                                   422)
                 : abort(422, "This role already exists");
         }
 
         if ($e instanceof TypeError) {
             return $request->expectsJson()
-                ? response()->json(['code' => 500,
-                    'message' => $e->getMessage(),
-                    'data' => []],
-                    500)
+                ? response()->json(['code'    => 500,
+                                    'message' => $e->getMessage(),
+                                    'data'    => []],
+                                   500)
                 : abort(500, $e->getMessage());
         }
 
         if ($e instanceof MethodNotAllowedHttpException) {
             return $request->expectsJson()
-                ? response()->json(['code' => 405,
-                    'message' => $e->getMessage(),
-                    'data' => []],
-                    405)
+                ? response()->json(['code'    => 405,
+                                    'message' => $e->getMessage(),
+                                    'data'    => []],
+                                   405)
                 : abort(405, $e->getMessage());
         }
 
         if ($e instanceof AuthenticationException) {
-            return $request->expectsJson()
-                ? response()->json(['code' => 401,
-                    'message' => $e->getMessage(),
-                    'data' => []],
-                    401)
-                : abort(401, $e->getMessage());
+            if ($request->expectsJson()) {
+                response()->json(['code'    => 401,
+                                  'message' => $e->getMessage(),
+                                  'data'    => []],
+                                 401);
+            }
+
+            Filament::notify('error', __('auth.you_are_not_logged'), true);
+            return redirect('login');
+
         }
         // End
 
