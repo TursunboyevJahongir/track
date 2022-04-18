@@ -1,61 +1,61 @@
 <x-filament::page>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .personal-image {
-            text-align: center;
+        .avatar-wrapper {
+            position: relative;
+            height: 200px;
+            width: 200px;
+            margin: 50px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 1px 1px 15px -5px black;
+            transition: all 0.3s ease;
         }
-        .personal-image input[type="file"] {
-            display: none;
-        }
-        .personal-figure {
-            display: block;margin-left: auto;margin-right: auto;
-            /*position: relative;*/
-            width: 120px;
-            height: 120px;
-        }
-        .personal-avatar {
+        .avatar-wrapper:hover {
+            transform: scale(1.05);
             cursor: pointer;
+        }
+        .avatar-wrapper:hover .profile-pic {
+            opacity: 0.5;
+        }
+        .avatar-wrapper .profile-pic {
+            height: 100%;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .avatar-wrapper .profile-pic:after {
+            content: "";
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            box-sizing: border-box;
-            border-radius: 100%;
-            border: 2px solid transparent;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
-            transition: all ease-in-out .3s;
-        }
-        .personal-avatar:hover {
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
-        }
-        .personal-figcaption {
-            cursor: pointer;
             position: absolute;
-            top: 23%;
-            width: inherit;
-            height: inherit;
-            border-radius: 100%;
+            font-size: 190px;
+            background: #ecf0f1;
+            color: #34495e;
+            text-align: center;
+        }
+        .avatar-wrapper .upload-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .avatar-wrapper .upload-button .fa-arrow-circle-up {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
             opacity: 0;
-            background-color: rgba(0, 0, 0, 0);
-            transition: all ease-in-out .3s;
+            font-size: 50px;
+            transition: all 0.3s ease;
+            color: #34495e;
         }
-        .personal-figcaption:hover {
-            opacity: 1;
-            background-color: rgba(0, 0, 0, .5);
-        }
-        .personal-figcaption > img {
-            margin-top: 32.5px;
-            width: 50px;
-            height: 50px;
-        }
-
-        .backgroundImage {
-            transition: 3s;
-        }
-        .backgroundImage:hover{
-            background-image: url('{{ $this->user->avatar->url1024 }}');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed;
-            transition: 3s;
+        .avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
+            opacity: 0.9;
         }
     </style>
 
@@ -70,16 +70,13 @@
 
         <form wire:submit.prevent="updateProfile" class="col-span-2 sm:col-span-1 mt-5 md:mt-0" >
             <x-filament::card>
-                <div class="personal-image">
-                    <label class="label">
-                        <input type="file" accept="image/*" name="avatar" onchange="loadFile(event)"/>
-                        <figure class="personal-figure">
-                            <img src="{{$this->user->avatar->url1024}}" id="uploadPreview" class="personal-avatar" alt="avatar">
-                            <figcaption class="personal-figcaption">
-                                <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png" style="display: block;margin-left: auto;margin-right: auto">
-                            </figcaption>
-                        </figure>
-                    </label>
+
+                <div class="avatar-wrapper">
+                    <img class="profile-pic" src="{{ $this->user->avatar->path_1024}}" />
+                    <div class="upload-button">
+                        <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                    </div>
+                    <input class="file-upload" type="file" accept="image/*" wire:model="avatar"/>
                 </div>
 
                 {{ $this->updateProfileForm }}
@@ -96,7 +93,6 @@
 
     </x-filament-breezy::grid-section>
 
-    <hr />
 
     <x-filament-breezy::grid-section>
 
@@ -157,23 +153,31 @@
                     </x-filament::card>
                 </form>
 
-                <hr />
-
-                @livewire(\JeffGreco13\FilamentBreezy\Http\Livewire\BreezySanctumTokens::class)
 
             </div>
         </x-filament-breezy::grid-section>
     @endif
 
-    <script type="text/javascript">
-        var loadFile = function(event) {
-            var output = document.getElementById('uploadPreview');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+    <script>
+        document.addEventListener('livewire:load', function () {
+            var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        document.getElementsByClassName('profile-pic')[0].setAttribute('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-            document.getElementById(".").style.color = "blue";
-        };
+            document.getElementsByClassName('file-upload')[0].onchange = function (){
+                readURL(this);
+            }
+            document.getElementsByClassName('upload-button')[0].onclick = function (){
+                document.getElementsByClassName('file-upload')[0].click();
+            }
+        })
     </script>
 
 </x-filament::page>

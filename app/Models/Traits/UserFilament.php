@@ -17,6 +17,6 @@ trait UserFilament
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->avatar->url_1024 ?? null;
+        return $this->avatar->path_original ?? null;
     }
 }

@@ -2,16 +2,16 @@
 
 namespace App\Filament\Pages;
 
-use App\Models\Resource;
+use App\Events\UpdateImage;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Pages\Page;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-use Livewire\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 class MyProfile extends Page
 {
+    use WithFileUploads;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.my-profile';
@@ -30,6 +30,7 @@ class MyProfile extends Page
     {
         $this->user = auth()->user()->loadMissing('avatar');
         $this->updateProfileForm->fill($this->user->toArray());
+        $this->updateProfileForm->fill(['avatar' => $this->user->avatar->path_1024]);
     }
 
     protected function getForms(): array
@@ -50,16 +51,6 @@ class MyProfile extends Page
     protected function getUpdateProfileFormSchema(): array
     {
         return [
-//            Forms\Components\FileUpload::make('avatar')
-//
-//                ->label('Avatar')
-//                ->default(auth()->user()->avatar->url_original)
-//                ->rules('image')
-////                ->withName('/')
-////                ->directory('uploads/avatar')
-//                ->image()
-////                ->visibility('/')
-//                ->required(false),
             Forms\Components\TextInput::make("full_name")
                 ->label(__('auth.full_name')),
             Forms\Components\TextInput::make("email")
@@ -72,12 +63,15 @@ class MyProfile extends Page
     }
 
 
-
     public function updateProfile()
     {
-//        dd($this->updateProfileForm->getState());
         $this->user->update($this->updateProfileForm->getState());
         $this->notify("success", __('filament-breezy::default.profile.personal_info.notify'));
+    }
+
+    public function updatedAvatar(){
+        UpdateImage::dispatch($this->avatar, $this->user->avatar(), User::RESOURCES_IDENTIFIER, User::PATH);
+        $this->redirect(url()->previous());
     }
 
     protected function getUpdatePasswordFormSchema(): array
@@ -102,7 +96,6 @@ class MyProfile extends Page
         $state['password'] = $this->updatePasswordForm->getState()['new_password'];
         $this->user->update($state);
         session()->forget("password_hash_web");
-//        auth("web")->login($this->user);
         $this->notify("success", __('filament-breezy::default.profile.password.notify'));
         $this->reset(["new_password", "new_password_confirmation"]);
     }

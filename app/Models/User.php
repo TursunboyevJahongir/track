@@ -7,6 +7,7 @@ use App\Helpers\toUpperCast;
 use App\Models\Traits\UserFilament;
 use App\Traits\Author;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,9 +18,9 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName,HasAvatar
 {
-    use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable,UserFilament;
+    use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable, UserFilament;
 
     protected $fillable = [
         'full_name',
