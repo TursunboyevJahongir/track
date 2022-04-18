@@ -72,7 +72,7 @@
             <x-filament::card>
 
                 <div class="avatar-wrapper">
-                    <img class="profile-pic" src="{{ $this->user->avatar->path_1024}}" />
+                    <img class="profile-pic" src="{{$this->user->avatar->path_1024}}" />
                     <div class="upload-button">
                         <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                     </div>

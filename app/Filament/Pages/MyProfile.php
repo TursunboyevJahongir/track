@@ -6,12 +6,11 @@ use App\Events\UpdateImage;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Pages\Page;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rules\Password;
-use Livewire\WithFileUploads;
 
 class MyProfile extends Page
 {
-    use WithFileUploads;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.my-profile';
@@ -24,7 +23,6 @@ class MyProfile extends Page
     public $plain_text_token;
     public $hasTeams;
     public $avatar;
-    public $avatar_file;
 
     public function mount()
     {
@@ -153,5 +151,14 @@ class MyProfile extends Page
     protected static function shouldRegisterNavigation(): bool
     {
         return config('filament-breezy.show_profile_page_in_navbar');
+    }
+
+    public function render(): View
+    {
+        return \view('filament.pages.my-profile')
+            ->layout('filament::components.layouts.app',[
+                'title' => self::$title,
+                'breadcrumbs' => $this->getBreadcrumbs()
+            ]);
     }
 }
