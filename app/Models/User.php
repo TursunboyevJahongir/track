@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Core\Models\Authenticatable;
 use App\Helpers\toUpperCast;
+use App\Models\Traits\UserFilament;
 use App\Traits\Author;
 use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName, HasAvatar
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName
 {
-    use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable,UserFilament;
 
     protected $fillable = [
         'full_name',
@@ -76,21 +76,5 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
     public function token(): MorphMany
     {
         return $this->morphMany(RefreshToken::class, 'user');
-    }
-
-    public function canAccessFilament(): bool
-    {
-        return true;
-    }
-
-    public function getFilamentName(): string
-    {
-        return $this->full_name;
-    }
-
-
-    public function getFilamentAvatarUrl(): ?string
-    {
-        return $this->avatar->path_original ?? '';
     }
 }

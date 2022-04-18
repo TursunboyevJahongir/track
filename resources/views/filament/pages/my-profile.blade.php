@@ -1,4 +1,63 @@
 <x-filament::page>
+    <style>
+        .personal-image {
+            text-align: center;
+        }
+        .personal-image input[type="file"] {
+            display: none;
+        }
+        .personal-figure {
+            display: block;margin-left: auto;margin-right: auto;
+            /*position: relative;*/
+            width: 120px;
+            height: 120px;
+        }
+        .personal-avatar {
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            border-radius: 100%;
+            border: 2px solid transparent;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+            transition: all ease-in-out .3s;
+        }
+        .personal-avatar:hover {
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+        }
+        .personal-figcaption {
+            cursor: pointer;
+            position: absolute;
+            top: 23%;
+            width: inherit;
+            height: inherit;
+            border-radius: 100%;
+            opacity: 0;
+            background-color: rgba(0, 0, 0, 0);
+            transition: all ease-in-out .3s;
+        }
+        .personal-figcaption:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, .5);
+        }
+        .personal-figcaption > img {
+            margin-top: 32.5px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .backgroundImage {
+            transition: 3s;
+        }
+        .backgroundImage:hover{
+            background-image: url('{{ $this->user->avatar->url1024 }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            transition: 3s;
+        }
+    </style>
 
     <x-filament-breezy::grid-section class="mt-8">
         <x-slot name="title">
@@ -9,8 +68,19 @@
             {{ __('filament-breezy::default.profile.personal_info.subheading') }}
         </x-slot>
 
-        <form wire:submit.prevent="updateProfile" class="col-span-2 sm:col-span-1 mt-5 md:mt-0">
+        <form wire:submit.prevent="updateProfile" class="col-span-2 sm:col-span-1 mt-5 md:mt-0" >
             <x-filament::card>
+                <div class="personal-image">
+                    <label class="label">
+                        <input type="file" accept="image/*" name="avatar" onchange="loadFile(event)"/>
+                        <figure class="personal-figure">
+                            <img src="{{$this->user->avatar->url1024}}" id="uploadPreview" class="personal-avatar" alt="avatar">
+                            <figcaption class="personal-figcaption">
+                                <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png" style="display: block;margin-left: auto;margin-right: auto">
+                            </figcaption>
+                        </figure>
+                    </label>
+                </div>
 
                 {{ $this->updateProfileForm }}
 
@@ -94,5 +164,16 @@
             </div>
         </x-filament-breezy::grid-section>
     @endif
+
+    <script type="text/javascript">
+        var loadFile = function(event) {
+            var output = document.getElementById('uploadPreview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+            document.getElementById(".").style.color = "blue";
+        };
+    </script>
 
 </x-filament::page>

@@ -33,7 +33,7 @@ class RolesTableSeeder extends Seeder
             $roles[] = [
                 'title' => json_encode($value),
                 'name' => $key,
-                'guard_name' => 'api',
+                'guard_name' => 'web',
                 'created_at' => now(),
                 'updated_at' => now()
             ];
@@ -59,7 +59,7 @@ class RolesTableSeeder extends Seeder
                 $commonPermissions = ['create', 'read', 'update', 'delete'];
                 foreach ($commonPermissions as $key => $permission) {
                     $permissions[$key] = ['name' => mb_strtolower($permission . '-' . $name),
-                        'guard_name' => 'api',
+                        'guard_name' => 'web',
                         'created_at' => now(),
                         'updated_at' => now()];
                 }

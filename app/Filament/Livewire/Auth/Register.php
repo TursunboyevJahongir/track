@@ -48,17 +48,17 @@ class Register extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('email')->email()->nullable(),
             Forms\Components\TextInput::make('password')
                 ->label(__('auth.enter_password'))
-                ->required()->password()
+                ->required()
+                ->password()
                 ->rules([Password::min(8)->letters()->numbers()]),
             Forms\Components\TextInput::make('password_confirm')
                 ->label(__('auth.confirm_password'))
-                ->required()->password()
+                ->required()
+                ->password()
                 ->same('password'),
             Forms\Components\Hidden::make('author_id')->default(null),
         ];
     }
-
-
 
     public function register()
     {
