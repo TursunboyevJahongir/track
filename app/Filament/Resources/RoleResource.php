@@ -17,22 +17,6 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-check';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('guard_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('title')
-                    ->required(),
-            ]);
-    }
-
-
     public static function table(Table $table): Table
     {
         return $table
