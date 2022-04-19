@@ -72,7 +72,6 @@ class MyProfile extends Page
 
     public function updateProfile()
     {
-        dd($this->updateProfileForm->getState());
         $this->user->update($this->updateProfileForm->getState());
         $this->notify("success", __('Successfully updated'));
     }
@@ -89,7 +88,6 @@ class MyProfile extends Page
             Forms\Components\TextInput::make("new_password")
                 ->label(__('auth.enter_password'))
                 ->password()
-                ->rules(config('filament-breezy.password_rules'))
                 ->rules([Password::min(8)->letters()->numbers()])
                 ->required(),
             Forms\Components\TextInput::make("new_password_confirmation")

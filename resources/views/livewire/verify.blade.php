@@ -1,4 +1,4 @@
-<x-filament-breezy::auth-card action="">
+
     <style>
         progress {
             border: none;
@@ -103,6 +103,3 @@
         })
 
     </script>
-
-
-</x-filament-breezy::auth-card>

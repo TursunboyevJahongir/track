@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Events\SmsConfirmSend;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Hidden;
@@ -33,7 +34,7 @@ class Register extends Component implements HasForms
     public function messages(): array
     {
         return [
-            'phone.unique' => __('filament-breezy::default.registration.notification_unique'),
+            'phone.unique' => __('This phone number already registered.'),
         ];
     }
 
@@ -73,12 +74,13 @@ class Register extends Component implements HasForms
     public function register()
     {
         $user = User::create($this->form->getState());
-        Filament::auth()->login($user);
+        // Filament::auth()->login($user);
 
-        return redirect(config("filament.home_url"));
+        // return redirect(config("filament.home_url"));
         // #todo: send verification sms
         // #todo: review verification process
-        // $this->redirect(route('verify-phone', ['account' => base64_encode($user->phone)]));
+        SmsConfirmSend::dispatch($user->phone);
+        $this->redirect(route('verify-phone', ['account' => base64_encode($user->phone)]));
     }
 
 

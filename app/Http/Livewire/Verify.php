@@ -31,18 +31,18 @@ class Verify extends Component implements HasForms
 
     public function __construct($id = null)
     {
-        // parent::__construct($id);
-        // $this->auth = auth()->user();
-        // $this->sms  = SmsConfirm::phone(auth()->user()->phone)->first();
+        parent::__construct($id);
+        $this->auth = auth()->user();
+        $this->sms  = SmsConfirm::phone(auth()->user()->phone)->first();
     }
 
 
     public function mount()
     {
-        if ($this->auth->is_active && $this->auth->phone_confirmed){
-            Filament::notify('error',__('sms.operation_prohibited'),true);
-            $this->redirect(config('filament.home_url'));
-        }
+        // if ($this->auth->is_active && $this->auth->phone_confirmed){
+        //     Filament::notify('error',__('sms.operation_prohibited'),true);
+        //     $this->redirect(config('filament.home_url'));
+        // }
         parent::mount();
         if (!$this->sms) {
             $this->sms = event(new SmsConfirmSend($this->auth->phone))[0];

@@ -717,5 +717,10 @@
     "Zambia": "Замбия",
     "Zimbabwe": "Зимбабве",
     "Zip / Postal Code": "Индекс",
-    "Åland Islands": "Аландские острова"
+    "Åland Islands": "Аландские острова",
+    "This phone number already registered.": "Этот номер телефона уже зарегистрирован.",
+    "Verification phone number": "Подтверждение номера телефона",
+    "verification_send_to": "Подтверждение кода sms отправлено на +:phone",
+    "Resend": "Повторить",
+    "Verify": "Подтвердить"
 }
