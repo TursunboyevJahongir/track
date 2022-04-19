@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Contracts\SmsRepositoryContract;
 use App\Events\PhoneConfirmed;
 use App\Events\SmsConfirmCheck;
 use App\Events\SmsConfirmSend;
@@ -31,9 +30,9 @@ class Verify extends Component implements HasForms
 
     public function __construct($id = null)
     {
-        // parent::__construct($id);
-        // $this->auth = auth()->user();
-        // $this->sms  = SmsConfirm::phone(auth()->user()->phone)->first();
+         parent::__construct($id);
+         $this->auth = auth()->user();
+         $this->sms  = SmsConfirm::phone(auth()->user()->phone)->first();
     }
 
 
@@ -107,7 +106,7 @@ class Verify extends Component implements HasForms
     {
         return view('livewire.verify')
             ->layout("filament::components.layouts.base", [
-                "title" => __('sms.verify_header'),
+                "title" => __('sms.verify_header')
             ]);
     }
 }
