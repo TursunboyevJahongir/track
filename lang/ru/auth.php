@@ -20,12 +20,13 @@ return [
     'login_with_google'           => 'Войти через Google',
     'login_with_facebook'         => 'Войти через Facebook',
     'or'                          => 'или',
-    'registration.heading'        => 'Создать новый аккаунт',
+    'registration_heading'        => 'Создайте новый аккаунт',
     'forgot_password_link'        => 'Забыли пароль?',
     'phone_number'                => 'Номер телефона',
     'you_are_not_logged'          => 'Оппс! У вас нет доступа',
     'full_name'                   => 'ФИО',
     'enter_password'              => 'Пароль',
     'confirm_password'            => 'Подтвердить Пароль',
-    'sign_up'                     => 'Зарегистрироваться'
+    'sign_up'                     => 'Зарегистрироваться',
+    'verification_title'          => 'Подтвердите номер телефона',
 ];

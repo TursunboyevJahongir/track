@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Events\UpdateImage;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Pages\Page;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rules\Password;
@@ -49,13 +50,19 @@ class MyProfile extends Page
     protected function getUpdateProfileFormSchema(): array
     {
         return [
-            Forms\Components\TextInput::make("full_name")
+            TextInput::make("full_name")
                 ->label(__('auth.full_name')),
-            Forms\Components\TextInput::make("email")
+            TextInput::make("email")
                 ->unique(ignorable: $this->user)
-                ->label(__('filament-breezy::default.fields.email'))
+                ->label(__('Email'))
                 ->disabled($this->user->google_id || $this->user->facebook_id),
-            Forms\Components\TextInput::make("phone")
+            TextInput::make("phone")
+                ->mask(
+                    fn (TextInput\Mask $mask) =>
+                    $mask
+                        ->pattern('+{998}(00)000-00-00')
+                        ->lazyPlaceholder(false)
+                )
                 ->label(__('auth.phone_number')),
         ];
     }
@@ -63,11 +70,13 @@ class MyProfile extends Page
 
     public function updateProfile()
     {
+        dd($this->updateProfileForm->getState());
         $this->user->update($this->updateProfileForm->getState());
-        $this->notify("success", __('filament-breezy::default.profile.personal_info.notify'));
+        $this->notify("success", __('Successfully updated'));
     }
 
-    public function updatedAvatar(){
+    public function updatedAvatar()
+    {
         UpdateImage::dispatch($this->avatar, $this->user->avatar(), User::RESOURCES_IDENTIFIER, User::PATH);
         $this->redirect(url()->previous());
     }
@@ -94,7 +103,7 @@ class MyProfile extends Page
         $state['password'] = $this->updatePasswordForm->getState()['new_password'];
         $this->user->update($state);
         session()->forget("password_hash_web");
-        $this->notify("success", __('filament-breezy::default.profile.password.notify'));
+        $this->notify("success", __('Successfully updated'));
         $this->reset(["new_password", "new_password_confirmation"]);
     }
 
@@ -121,7 +130,7 @@ class MyProfile extends Page
             return in_array($key, $indexes);
         })->toArray();
         $this->plain_text_token = auth()->user()->createToken($state['token_name'], array_values($selected))->plainTextToken;
-        $this->notify("success", __('filament-breezy::default.profile.sanctum.create.notify'));
+        $this->notify("success", __('Successfully created token'));
         $this->emit('tokenCreated');
         $this->reset(['token_name']);
     }
@@ -129,28 +138,28 @@ class MyProfile extends Page
     protected function getBreadcrumbs(): array
     {
         return [
-            url()->current() => __('filament-breezy::default.profile.profile'),
+            url()->current() => __('Profile'),
         ];
     }
 
     protected static function getNavigationGroup(): ?string
     {
-        return __('filament-breezy::default.profile.account');
+        return __('Account');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('filament-breezy::default.profile.profile');
+        return __('Profile');
     }
 
     protected function getTitle(): string
     {
-        return __('filament-breezy::default.profile.my_profile');
+        return __('My Profile');
     }
 
     protected static function shouldRegisterNavigation(): bool
     {
-        return config('filament-breezy.show_profile_page_in_navbar');
+        return false;
     }
 
     public function render(): View
