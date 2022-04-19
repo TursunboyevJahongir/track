@@ -7,8 +7,7 @@ use Filament\Forms\Components\Select;
 
 trait Translatable
 {
-    public $language;
-    public $translatable;
+    public $language = 'ru';
 
     public function getTranslatableFormSchema(): array{
         return [

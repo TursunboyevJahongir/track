@@ -26,6 +26,7 @@ class EditRole extends EditRecord
 
     public function save(bool $shouldRedirect = true): void
     {
+        app()->setLocale($this->language);
         $this->callHook('beforeValidate');
 
         $data = $this->form->getState();
@@ -35,7 +36,6 @@ class EditRole extends EditRecord
         $data = $this->mutateFormDataBeforeSave($data);
 
         $this->callHook('beforeSave');
-        dd($data);
         $this->handleRecordUpdate($this->record, $data);
 
         $this->callHook('afterSave');
