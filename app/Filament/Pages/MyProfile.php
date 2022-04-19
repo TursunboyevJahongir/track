@@ -70,7 +70,6 @@ class MyProfile extends Page
 
     public function updateProfile()
     {
-        dd($this->updateProfileForm->getState());
         $this->user->update($this->updateProfileForm->getState());
         $this->notify("success", __('Successfully updated'));
     }

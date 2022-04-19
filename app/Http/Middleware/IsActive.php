@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Core\Traits\Responsable;
 use Closure;
+use App\Core\Traits\Responsable;
 use Illuminate\Http\Request;
 
 class IsActive
