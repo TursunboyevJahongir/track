@@ -27,10 +27,11 @@ class RoleResource extends Resource
                 Forms\Components\TextInput::make('guard_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('title')->label('Title' . '( '.app()->getLocale().')')
+                Forms\Components\TextInput::make('title')
                     ->required(),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -41,7 +42,7 @@ class RoleResource extends Resource
                 Tables\Columns\TextColumn::make('title'),
             ])
             ->filters([
-                //
+
             ]);
     }
 

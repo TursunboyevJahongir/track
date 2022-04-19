@@ -10,6 +10,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{MorphMany, MorphOne};
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,6 +22,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasName,HasAvatar
 {
     use HasApiTokens, HasFactory, HasRoles, Author, SoftDeletes, Notifiable, UserFilament;
+
 
     protected $fillable = [
         'full_name',
