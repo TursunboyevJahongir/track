@@ -31,9 +31,9 @@ class Verify extends Component implements HasForms
 
     public function __construct($id = null)
     {
-        parent::__construct($id);
-        $this->auth = auth()->user();
-        $this->sms  = SmsConfirm::phone($this->auth->phone)->first();
+        // parent::__construct($id);
+        // $this->auth = auth()->user();
+        // $this->sms  = SmsConfirm::phone(auth()->user()->phone)->first();
     }
 
 

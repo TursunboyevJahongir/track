@@ -1,5 +1,8 @@
 <?php
 
+use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\Auth\Register;
+use App\Filament\Pages\Dashboard;
 use App\Http\Middleware\IsActive;
 use App\Http\Middleware\PhoneVerify;
 use Filament\Http\Middleware\Authenticate;
@@ -65,7 +68,7 @@ return [
     |
     */
 
-    'home_url' => '/',
+    'home_url' => '/home',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +94,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            "login" => \App\Filament\Livewire\Auth\Login::class,
+            "login" => null,
         ],
     ],
 
@@ -109,7 +112,7 @@ return [
         'namespace' => 'App\\Filament\\Pages',
         'path'      => app_path('Filament/Pages'),
         'register'  => [
-            Pages\Dashboard::class,
+            Dashboard::class,
         ],
     ],
 
@@ -142,10 +145,7 @@ return [
     'widgets' => [
         'namespace' => 'App\\Filament\\Widgets',
         'path'      => app_path('Filament/Widgets'),
-        'register'  => [
-            Widgets\AccountWidget::class,
-            Widgets\FilamentInfoWidget::class,
-        ],
+        'register'  => [],
     ],
 
     /*
@@ -173,7 +173,7 @@ return [
     |
     */
 
-    'dark_mode' => false,
+    'dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -197,13 +197,13 @@ return [
         'footer'            => [
             'should_show_logo' => false,
         ],
-        'max_content_width' => null,
+        'max_content_width' => 'full',
         'notifications'     => [
             'vertical_alignment' => 'top',
             'alignment'          => 'right',
         ],
         'sidebar'           => [
-            'is_collapsible_on_desktop' => false,
+            'is_collapsible_on_desktop' => true,
         ],
         'tables'            => [
             'actions' => [
@@ -260,8 +260,8 @@ return [
     'middleware' => [
         'auth' => [
             Authenticate::class,
-            PhoneVerify::class,
-            IsActive::class,
+            // PhoneVerify::class,
+            // IsActive::class,
         ],
         'base' => [
             EncryptCookies::class,

@@ -59,13 +59,13 @@
         }
     </style>
 
-    <x-filament-breezy::grid-section class="mt-8">
+    <x-grid-section class="mt-8">
         <x-slot name="title">
-            {{ __('filament-breezy::default.profile.personal_info.heading') }}
+            {{ __('Personal info') }}
         </x-slot>
 
         <x-slot name="description">
-            {{ __('filament-breezy::default.profile.personal_info.subheading') }}
+            {{ __('information') }}
         </x-slot>
 
         <form wire:submit.prevent="updateProfile" class="col-span-2 sm:col-span-1 mt-5 md:mt-0" >
@@ -84,17 +84,17 @@
                 <x-slot name="footer">
                     <div class="text-right">
                         <x-filament::button type="submit">
-                            {{ __('filament-breezy::default.profile.personal_info.submit.label') }}
+                            {{ __('submit') }}
                         </x-filament::button>
                     </div>
                 </x-slot>
             </x-filament::card>
         </form>
 
-    </x-filament-breezy::grid-section>
+    </x-grid-section>
 
 
-    <x-filament-breezy::grid-section>
+    <x-grid-section>
 
         <x-slot name="title">
             {{ __('filament-breezy::default.profile.password.heading') }}
@@ -112,19 +112,19 @@
                 <x-slot name="footer">
                     <div class="text-right">
                         <x-filament::button type="submit">
-                            {{ __('filament-breezy::default.profile.password.submit.label') }}
+                            {{ __('Submit') }}
                         </x-filament::button>
                     </div>
                 </x-slot>
             </x-filament::card>
         </form>
 
-    </x-filament-breezy::grid-section>
+    </x-grid-section>
 
     @if(config('filament-breezy.enable_sanctum'))
         <hr />
 
-        <x-filament-breezy::grid-section class="mt-8">
+        <x-grid-section class="mt-8">
 
             <x-slot name="title">
                 {{ __('filament-breezy::default.profile.sanctum.title') }}
@@ -155,7 +155,7 @@
 
 
             </div>
-        </x-filament-breezy::grid-section>
+        </x-grid-section>
     @endif
 
     <script>

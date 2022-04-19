@@ -24,6 +24,7 @@ use App\Services\{
 };
 use App\Services\Sms\SmsService;
 use Filament\Facades\Filament;
+use Filament\Navigation\UserMenuItem;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -59,6 +60,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Filament::serving(function () {
             Filament::registerTheme(mix('css/app.css'));
+            Filament::registerUserMenuItems([
+                'account' => UserMenuItem::make()
+                    ->url(route('filament.pages.my-profile'))
+            ]);
         });
     }
 }

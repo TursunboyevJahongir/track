@@ -56,6 +56,8 @@
                 }
             </script>
         @endif
+
+        @stack('styles')
     </head>
 
     <body @class([
