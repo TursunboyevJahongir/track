@@ -1,4 +1,10 @@
 <x-filament::page class="filament-resources-create-record-page">
+    <style>
+        th,td{
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
     <x-filament::form wire:submit.prevent="create">
 
         {{$this->form}}
@@ -9,21 +15,11 @@
         <table class="w-full text-left rtl:text-right divide-y table-auto filament-tables-table">
             <thead>
             <tr class="bg-gray-50">
-                <th class="p-0 filament-tables-header-cell">
-                    model
-                </th>
-                <th class="p-0 filament-tables-header-cell">
-                    create
-                </th>
-                <th class="p-0 filament-tables-header-cell">
-                    read
-                </th>
-                <th class="p-0 filament-tables-header-cell">
-                    update
-                </th>
-                <th class="p-0 filament-tables-header-cell">
-                    delete
-                </th>
+                <th>  </th>
+                <th> {{__('roles.create')}} </th>
+                <th> {{__('roles.read')}} </th>
+                <th> {{__('roles.update')}} </th>
+                <th> {{__('roles.delete')}} </th>
             </tr>
             </thead>
             <tbody class="divide-y whitespace-nowrap">
@@ -33,16 +29,16 @@
                         {{$model}}
                     </td>
                     @foreach($permissions as $id => $permission)
-                        <td>
+                        <td colspan="{{5 - sizeof($permissions)}}">
                             <input type="checkbox" wire:model="toggle" value="{{$id}}" class="{{$model}}">
                         </td>
                     @endforeach
                 </tr>
             @endforeach
-
             </tbody>
-
         </table>
+
+
 
         <x-filament::form.actions :actions="$this->getCachedFormActions()" />
     </x-filament::form>

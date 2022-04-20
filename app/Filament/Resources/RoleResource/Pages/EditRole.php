@@ -35,9 +35,8 @@ class EditRole extends EditRecord
     }
 
     public function selectAll($key){
-        foreach ($this->permissionWithRole[$key] as $id => $permission){
+        foreach ($this->permissionWithRole[$key] as $id => $permission)
             if (!in_array($id,$this->toggle)) $this->toggle = array_merge($this->toggle,[$id]);
-        }
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
@@ -51,8 +50,8 @@ class EditRole extends EditRecord
     protected function form(Form $form): Form
     {
         return $form->schema([
-            TextInput::make('name'),
-            TextInput::make('guard_name')->disabled(),
+            TextInput::make('name')->required()->label(__('roles.name')),
+            TextInput::make('guard_name')->disabled()->label(__('roles.guard_name')),
         ]);
     }
 
@@ -60,11 +59,11 @@ class EditRole extends EditRecord
     {
         return array_merge(parent::getForms(),[
             'titleForm' => $this->makeForm()->schema([
-                TextInput::make('uz')
+                TextInput::make('uz')->label(__('roles.title',['lang'=>'uz']))
                     ->required(config('app.main_locale') == 'uz'),
-                TextInput::make('ru')
+                TextInput::make('ru')->label(__('roles.title',['lang'=>'ru']))
                     ->required(config('app.main_locale') == 'ru'),
-                TextInput::make('en')
+                TextInput::make('en')->label(__('roles.title',['lang'=>'en']))
                     ->required(config('app.main_locale') == 'en'),
             ])
         ]);
