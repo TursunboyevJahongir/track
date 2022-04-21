@@ -27,5 +27,8 @@ return [
     'full_name'                   => 'ФИО',
     'enter_password'              => 'Пароль',
     'confirm_password'            => 'Подтвердить Пароль',
-    'sign_up'                     => 'Зарегистрироваться'
+    'sign_up'                     => 'Зарегистрироваться',
+    'phone_is_already_using'      => 'Этот номер уже используется',
+    'select_role'                 => 'Выберите роль',
+
 ];
